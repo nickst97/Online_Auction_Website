@@ -12,6 +12,7 @@
         <%
             String uname = request.getParameter("uname");
             String password = request.getParameter("pwd1");
+            String password_repeat = request.getParameter("pwd2");
             String fname = request.getParameter("fname");
             String lname = request.getParameter("lname");
             String email = request.getParameter("email");
@@ -22,14 +23,35 @@
             java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
                     "king", "");
             Statement st = con.createStatement();
-            ResultSet rs;
-            int i = st.executeUpdate("insert into Users (uname, password, fname, lname, email, phone, address, tin) values ('" + uname + "', '" + password + "', '" + fname + "', '" + lname + "', '" + email + "', '" + phone + "', '" + address + "', '" + tin + "')");
 
-            out.println("Registered");
-
-
+            //username availability checking
+            ResultSet res = st.executeQuery("SELECT * FROM Users WHERE uname = '" + uname + "' LIMIT 1");
+            if (res.next()) {
         %>
-        <a href ="Login.html">Login</a><br/><br/>
+        <script type="text/javascript">
+            alert("Username already taken.");
+            history.go(-1);
+        </script>
+        <%
+        } else {
+
+            //password equality checking
+            if (!password.equals(password_repeat)) {
+        %>
+        <script type="text/javascript">
+            alert("Passwords do not match.");
+            history.go(-1);
+        </script>
+        <%
+                } else {
+
+                    //update database
+                    int i = st.executeUpdate("insert into Users (uname, password, fname, lname, email, phone, address, tin) values ('" + uname + "', '" + password + "', '" + fname + "', '" + lname + "', '" + email + "', '" + phone + "', '" + address + "', '" + tin + "')");
+                    out.println("Registered");
+                }
+            }
+        %>
+        <a href ="login.html">Login</a><br/><br/>
         <a href="index.html">Home</a>
     </body>
 </html>
