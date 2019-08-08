@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html">
 <html>
@@ -20,8 +20,7 @@
             String address = request.getParameter("address");
             String tin = request.getParameter("tin");
             Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
-                    "king", "");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/login","root","");
             Statement st = con.createStatement();
 
             //username availability checking
@@ -44,10 +43,10 @@
         </script>
         <%
                 } else {
-
                     //update database
                     int i = st.executeUpdate("insert into Users (uname, password, fname, lname, email, phone, address, tin) values ('" + uname + "', '" + password + "', '" + fname + "', '" + lname + "', '" + email + "', '" + phone + "', '" + address + "', '" + tin + "')");
                     out.println("Registered");
+                    response.sendRedirect("../startpage.html");
                 }
             }
         %>

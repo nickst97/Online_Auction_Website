@@ -13,12 +13,14 @@
             session.putValue("uname", uname);
             String pwd = request.getParameter("pwd");
             Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "king", "");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/login","root","");
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("select * from Users where uname='" + uname + "'");
             if (rs.next()) {
-                if (rs.getString(3).equals(pwd)) {
+                if (rs.getString(3).equals(pwd)) {;
+                    session.setAttribute("user",uname);
                     out.println("Welcome " + uname + " !");
+                    response.sendRedirect("../homepage.jsp");
                 } else {
                     out.println("Invalid password try again" + pwd);
                 }
