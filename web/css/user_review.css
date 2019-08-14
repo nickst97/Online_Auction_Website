@@ -1,0 +1,58 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --site_orange: #ff4500;
+    --site_orange_shadow: #B23000;
+    --site_gray_dark: #4f4f51;
+    --site_gray_light: #d6d6d6;
+    --site_black: #2c2b30;
+}
+
+.header .welcome_box {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 50px;
+    font-size: 23px;
+}
+
+.main_body{
+    display: flex;
+    justify-content: center;
+    padding: 50px 15% 10px 15%;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    height: 500px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+table{
+    margin-right: 700px;
+    width: 100%;
+}
+
+td, th {
+    text-align: left;
+    padding: 8px;
+}
+
+th{
+    width: 10px;
+}
+
+#bid{
+    text-align: right;
+}
