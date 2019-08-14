@@ -22,7 +22,7 @@
                 <div class="icon">
                     <img src="./img/icons/profile_icon.png">
                     <div class="overlay">
-                        <a href="profile.html" class="icon_hover"><img src="./img/icons/profile_icon_hover.png"></a>
+                        <a href="LogoutServlet" class="icon_hover"><img src="./img/icons/profile_icon_hover.png"></a>
                     </div>
                 </div>
             </div>
@@ -44,10 +44,7 @@
                     <%
                         while (rs.next()) {
                     %>
-                <!--            RequestDispatcher rd = getServletContext().getRequestDispatcher("/report?p="+value);
-                rd.forward(request, response);   -->
-                            <!--<tr onclick="window.location = '/WEB-INF/user_review.jsp?profile_uname=<%= rs.getString("uname")%>';">-->
-                <tr onclick="window.location = 'user_review?visitor_flag=<%= rs.getString("uname")%>';">
+                <tr onclick="window.location = 'user_review?profile_uname=<%= rs.getString("uname")%>';">
 
                     <td>
                         <%=rs.getString("uname")%>
@@ -58,7 +55,7 @@
                     <%if (rs.getString("verified").equals("N")) {%>
                     <td>No</td>
                     <td bgcolor="#F8F9FB">
-                        <a class="verify" href="./jsp/user_verify.jsp?profile_uname=<%= rs.getString("uname")%>">Click to verify this profile</a>
+                        <a class="verify" href="user_verify?profile_uname=<%= rs.getString("uname")%>">Click to verify this profile</a>
                     </td><%} else {%>
                     <td>Yes</td>
                     <%}%>

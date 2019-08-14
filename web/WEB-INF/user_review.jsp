@@ -5,8 +5,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Admin - <% String uname = request.getParameter("profile_uname");
             out.print(uname);%></title>
-        <link rel="stylesheet" href="./homepage.css">
-        <link rel="stylesheet" href="./user_review.css">
+        <link rel="stylesheet" href="./css/homepage.css">
+        <link rel="stylesheet" href="./css/user_review.css">
     </head>
     <body>
         <%@ page import="java.sql.*"%>
@@ -23,7 +23,7 @@
                 <div class="icon">
                     <img src="./img/icons/profile_icon.png">
                     <div class="overlay">
-                        <a href="profile.html" class="icon_hover"><img src="./img/icons/profile_icon_hover.png"></a>
+                        <a href="LogoutServlet" class="icon_hover"><img src="./img/icons/profile_icon_hover.png"></a>
                     </div>
                 </div>
             </div>

@@ -12,13 +12,18 @@
             }
         %>
         
-        <% if (session.getAttribute("error") != null) { if (session.getAttribute("error").equals("uname")) { %>
+        <%  if (session.getAttribute("error") != null) {
+                if (session.getAttribute("error").equals("uname")) { %>
         <script type="text/javascript"> alert("This username doesn't exist. Please try again!"); </script>            
-        <% } }%>
-        
-        <% if (session.getAttribute("error") != null) { if (session.getAttribute("error").equals("pwd")) { %>
+        <%      }else if (session.getAttribute("error").equals("pwd")) { %>
         <script type="text/javascript"> alert("Wrong password. Please try again!"); </script>            
-        <% } }%>
+        <%      }else if (session.getAttribute("error").equals("used_uname")) { %>
+        <script type="text/javascript"> alert("Username already taken!"); </script>                 
+        <%      }else if (session.getAttribute("error").equals("wrong_pwd")) { %>
+        <script type="text/javascript"> alert("Passwords don't match. Please try again!"); </script>            
+        <% } 
+            session.removeAttribute("error");
+         }%>
         
         <div class="fadeIn first">
             <img src="./img/logo/logo_350x150.png" class="logo" alt="Logo 350x150"/>
@@ -47,7 +52,7 @@
                 </div>
 
                 <div id="signup">   
-                    <form action="./jsp/reg.jsp" method="post" name="register_form">
+                    <form action="RegistrationServlet" method="post" name="register_form">
 
                         <div class="field-wrap">
                             <input type="text" placeholder="Username" name="uname" required/>
@@ -106,21 +111,11 @@
                 </div>
             </div>
 
-<<<<<<< HEAD:web/startpage.jsp
             <form action="LoginServlet" method="post">
                 <input type="hidden" name="visitor_flag" value="Y"><br>
                 <button class="visitor" type="submit"/>Just a visitor? Click here!</button>
             </form>
         </div>
-=======
-
-
-            </div><!-- tab-content -->
-            <div class="visitor"><a href="homepage.jsp">Just a visitor? Click here!</a></div>
-
-        </div> <!-- /form -->
-        <!-- partial -->
->>>>>>> origin/master:web/startpage.html
         <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
         <script  src="./js/script.js"></script>
 

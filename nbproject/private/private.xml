@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/nickst/Desktop/Τ.Ε.Διαδικτύου/MyEbay/nbproject/build-impl.xml</file>
             <file>file:/home/nickst/Desktop/Τ.Ε.Διαδικτύου/MyEbay/src/java/LoginServlet.java</file>
-            <file>file:/home/nickst/Desktop/Τ.Ε.Διαδικτύου/MyEbay/web/WEB-INF/homepage.jsp</file>
-            <file>file:/home/nickst/Desktop/Τ.Ε.Διαδικτύου/MyEbay/src/java/LogoutServlet.java</file>
+            <file>file:/home/nickst/Desktop/Τ.Ε.Διαδικτύου/MyEbay/web/jsp/reg.jsp</file>
+            <file>file:/home/nickst/Desktop/Τ.Ε.Διαδικτύου/MyEbay/src/java/RegisterServlet.java</file>
             <file>file:/home/nickst/Desktop/Τ.Ε.Διαδικτύου/MyEbay/web/startpage.jsp</file>
-            <file>file:/home/nickst/Desktop/Τ.Ε.Διαδικτύου/MyEbay/web/css/startpage.css</file>
         </group>
     </open-files>
 </project-private>

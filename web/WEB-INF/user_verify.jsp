@@ -14,7 +14,8 @@
             java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "king", "");
             Statement st = con.createStatement();
             st.executeUpdate("UPDATE Users SET verified = 'Y' WHERE uname='" + uname + "'");
-            response.sendRedirect("../users_preview.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/users_preview.jsp");
+            dispatcher.forward(request, response);
         %>
     </body>
 </html>

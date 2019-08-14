@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 //CURRENT SERVLET REDIRECTS TO HOMEPAGES, OLD "homepage"
-@WebServlet("/user_review")
-public class user_review extends HttpServlet {
+@WebServlet("/user_verify")
+public class user_verify extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
@@ -19,7 +19,7 @@ public class user_review extends HttpServlet {
         HttpSession session = request.getSession(false);
         String uname = request.getParameter("profile_uname");
         if (uname != null && !uname.isEmpty()) {
-           RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/user_review.jsp?profile_uname="+uname);
+           RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/user_verify.jsp?profile_uname="+uname);
            rd.forward(request, response);           
         }     
     }
