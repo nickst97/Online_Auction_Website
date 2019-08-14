@@ -106,11 +106,21 @@
                 </div>
             </div>
 
+<<<<<<< HEAD:web/startpage.jsp
             <form action="LoginServlet" method="post">
                 <input type="hidden" name="visitor_flag" value="Y"><br>
                 <button class="visitor" type="submit"/>Just a visitor? Click here!</button>
             </form>
         </div>
+=======
+
+
+            </div><!-- tab-content -->
+            <div class="visitor"><a href="homepage.jsp">Just a visitor? Click here!</a></div>
+
+        </div> <!-- /form -->
+        <!-- partial -->
+>>>>>>> origin/master:web/startpage.html
         <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
         <script  src="./js/script.js"></script>
 
