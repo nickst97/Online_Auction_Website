@@ -6,15 +6,63 @@
         <%@ page import ="java.sql.*" %>
         <%@ page import ="javax.sql.*" %>
         <%@ page import ="java.util.ArrayList" %>
+        <%@ page import = "java.util.Date" %>
+        <%@ page import = "java.text.SimpleDateFormat" %>
     </head>
     <body>
+            <%  //see if end date has passed
+            Class.forName("com.mysql.jdbc.Driver");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/login","root","");
+            Statement st_10=con.createStatement();
+            int hasn=2;
+            ResultSet rs_10=st_10.executeQuery("SELECT * FROM item WHERE hasstarted != '" + hasn + "'");
+            SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date datec=new Date();
+            /* for every item */
+            while(rs_10.next()){
+                String enddate=rs_10.getString("ends");
+                Date edf=sdf.parse(enddate);
+                /* if date passed */
+                if(enddate.compareTo(sdf.format(datec))<0){
+                    Statement st_11=con.createStatement();
+                    int hasch=2;
+                    /* end it */
+                    int lch=st_11.executeUpdate("UPDATE item SET hasstarted = '" + hasch + "' WHERE item_id= '" + rs_10.getString("item_id") + "'");
+                    Statement st_12=con.createStatement();
+                    ResultSet rs_12=st_12.executeQuery("SELECT * FROM item WHERE item_id = '" + rs_10.getString("item_id") + "'");
+                    /* find item */
+                    if(rs_12.next()){
+                        /* get current max */
+                        float curr=Float.parseFloat(rs_12.getString("currently"));
+                        Statement st_13=con.createStatement();
+                        ResultSet rs_13=st_13.executeQuery("SELECT * FROM bid WHERE item_id = '" + rs_10.getString("item_id") + "'");
+                        /* for every bid of this item */
+                        while(rs_13.next()){
+                            float amount=Float.parseFloat(rs_13.getString("amount"));
+                            /* if max,won */
+                            if(Float.compare(curr,amount)==0){
+                                String seller=rs_12.getString("seller_id");
+                                String usrw=rs_13.getString("user_id");
+                                Statement st_14 = con.createStatement();
+                                int lp=st_14.executeUpdate("insert into won (item_id,bidder,seller) values ('" + rs_10.getString("item_id") + "','" + usrw + "','" + seller + "')");
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            //ends here
+        %>
+        <% if (session.getAttribute("user")==null) { 
+        response.sendRedirect("/homepage.jsp");
+         } %>
         <a href="homepage.jsp">Homepage</a>
         <a href="manage.jsp">Manage bids</a>
         <a href="navigate.jsp">Search/Navigate bids</a>
         <% if (session.getAttribute("user")!=null) { %>
         <a href="./jsp/logout.jsp">Log-out</a>
         <% } else{ %>
-        <a href="startpage.html">Log-in/Sign-up</a>
+        <a href="startpage.jsp">Log-in/Sign-up</a>
         <% } %>
         </br>
         </br>
@@ -22,15 +70,14 @@
         <a href="navigatebids.jsp">Navigate live bids</a>
         <a href="editbids.jsp">Edit/Delete not live bids</a>
          <%
+            //edit not live bids(hasstarted==0) or live bids(hasstarted==1) with number_of_bids==0
             Object o=session.getAttribute("user");
             String usr=(String)o;
-            Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/login","root","");
             Statement st = con.createStatement();
             Statement st_2 = con.createStatement();
             int val=0;
             int num=0;
-            ResultSet rs=st.executeQuery("SELECT * FROM item WHERE seller_id = '" + usr + "' AND (hasstarted = '" + val + "' OR number_of_bids = '" + num + "' )");
+            ResultSet rs=st.executeQuery("SELECT * FROM item WHERE seller_id = '" + usr + "' AND (hasstarted = '" + val + "' OR number_of_bids = '" + num + "' ) AND hasstarted!= '" + hasn + "'");
            %>
            </br> <p><b> Edit Bids of <%=usr%></b></p> </br> </br>
             <%
@@ -43,7 +90,7 @@
         Edit bid <%=rs.getString("item_id")%> : <br/><br/>
         <input name="item_id" type="hidden" value=<%=rs.getString("item_id")%> />
         <input name="hasstarted" type="hidden" value=<%=rs.getString("hasstarted")%> />
-        Name: <input type="text" name="name" value=<%=rs.getString("name")%> /><br/><br/>
+        Name: <input type="text" name="name" value="<%=rs.getString("name")%>" required /><br/><br/>
         <% 
         String idi=rs.getString(1);
         int id=Integer.valueOf(idi);
@@ -55,50 +102,29 @@
         if(ar.contains("Movies"))
             out.println("MOVIES");
         %>
-        Categories: </br>
-            <input type="checkbox" name="cat" value="Collectibles" <% if(ar.contains("Collectibles")){ %> checked <% } %> >Collectibles</input>
-            <input type="checkbox" name="cat" value="Movies" <% if(ar.contains("Movies")){ %> checked <% } %> >Movies</input>
-            <input type="checkbox" name="cat" value="DVD" <% if(ar.contains("DVD")){ %> checked <% } %> >DVD</input>
-            <input type="checkbox" name="cat" value="Television" <% if(ar.contains("Television")){ %> checked <% } %> >Television</input>
-            <input type="checkbox" name="cat" value="Autographs" <% if(ar.contains("Autographs")){ %> checked <% } %> >Autographs</input>
-            <input type="checkbox" name="cat" value="Posters" <% if(ar.contains("Posters")){ %> checked <% } %> >Posters</input>
-            <input type="checkbox" name="cat" value="Music" <% if(ar.contains("Music")){ %> checked <% } %> >Music</input>
-            <input type="checkbox" name="cat" value="Video" <% if(ar.contains("Video")){ %> checked <% } %> >Video</input>
-            <input type="checkbox" name="cat" value="Clothing" <% if(ar.contains("Clothing")){ %> checked <% } %> >Clothing</input>
-            <input type="checkbox" name="cat" value="Boys" <% if(ar.contains("Boys")){ %> checked <% } %> >Boys</input>
-            <input type="checkbox" name="cat" value="Girls" <% if(ar.contains("Girls")){ %> checked <% } %> >Girls</input>
-            <input type="checkbox" name="cat" value="Teens" <% if(ar.contains("Teens")){ %> checked <% } %> >Teens</input>
-            <input type="checkbox" name="cat" value="Men" <% if(ar.contains("Men")){ %> checked <% } %> >Men</input>
-            <input type="checkbox" name="cat" value="Women" <% if(ar.contains("Women")){ %> checked <% } %> >Women</input>
-            <input type="checkbox" name="cat" value="Underwears" <% if(ar.contains("Underwears")){ %> checked <% } %> >Underwears</input>
-            <input type="checkbox" name="cat" value="Shoes" <% if(ar.contains("Shoes")){ %> checked <% } %> >Shoes</input>
-            <input type="checkbox" name="cat" value="Jeans" <% if(ar.contains("Jeans")){ %> checked <% } %> >Jeans</input>
-            <input type="checkbox" name="cat" value="T-shirts" <% if(ar.contains("T-shirts")){ %> checked <% } %> >T-shirts</input>
-            <input type="checkbox" name="cat" value="Sweaters" <% if(ar.contains("Sweaters")){ %> checked <% } %> >Sweaters</input>
-            <input type="checkbox" name="cat" value="Accessories" <% if(ar.contains("Accessories")){ %> checked <% } %> >Accessories</input>
-            <input type="checkbox" name="cat" value="Backpacks" <% if(ar.contains("Backpacks")){ %> checked <% } %> >Backpacks</input>
-            <input type="checkbox" name="cat" value="Bags" <% if(ar.contains("Bags")){ %> checked <% } %> >Bags</input>
-            <input type="checkbox" name="cat" value="Suits" <% if(ar.contains("Suits")){ %> checked <% } %> >Suits</input>
-            <input type="checkbox" name="cat" value="Sports" <% if(ar.contains("Sports")){ %> checked <% } %> >Sports</input>
-            <input type="checkbox" name="cat" value="Skirts" <% if(ar.contains("Skirts")){ %> checked <% } %> >Skirts</input>
-            <input type="checkbox" name="cat" value="Small" <% if(ar.contains("Small")){ %> checked <% } %> >Small</input>
-            <input type="checkbox" name="cat" value="Medium" <% if(ar.contains("Medium")){ %> checked <% } %> >Medium</input>
-            <input type="checkbox" name="cat" value="Large" <% if(ar.contains("Large")){ %> checked <% } %> >Large</input>
-            <input type="checkbox" name="cat" value="Extra-Small" <% if(ar.contains("Extra-Small")){ %> checked <% } %> >Extra-Small</input>
-            <input type="checkbox" name="cat" value="Extra-Large" <% if(ar.contains("Extra-Large")){ %> checked <% } %> >Extra-Large</input>
+        Categories: </br> 
+            <%  
+            Statement st_5 = con.createStatement();
+            ResultSet rs_2=st_5.executeQuery("SELECT * FROM category_labels");
+            String descr=rs.getString("description");
+            while(rs_2.next()){ 
+            
+             %>
+            <input type="checkbox" name="cat" value=<%=rs_2.getString("category_name")%> <% if(ar.contains(rs_2.getString("category_name"))){ %> checked <% } %> ><%=rs_2.getString("category_name")%></input>
+        <% } %>
         <br/><br/>
-        Buy Price: <input type="number" name="buyp"  step="0.01" min="0" value=<%=rs.getString("buy_price")%> /><br/><br/>
-        First Bid: <input type="number" name="firstb"  step="0.01" min="0" value=<%=rs.getString("first_bid")%> /><br/><br/>
-        Location: <input type="text" name="loc" value=<%=rs.getString("location")%> /><br/><br/>
-        Country: <input type="text" name="country" value=<%=rs.getString("country")%> /><br/><br/>
-        Description: <input type="text" name="desc" value=<%=rs.getString("description")%> /><br/><br/>
+        Buy Price: <input type="number" name="buyp"  step="0.01" min="0" value=<%=rs.getString("buy_price")%> required /><br/><br/>
+        First Bid: <input type="number" name="firstb"  step="0.01" min="0" value=<%=rs.getString("first_bid")%> required /><br/><br/>
+        Location: <input type="text" name="loc" value="<%=rs.getString("location")%>" required /><br/><br/>
+        Country: <input type="text" name="country" value="<%=rs.getString("country")%>" required /><br/><br/>
+        Description: <input type="text" name="desc" value="<%=rs.getString("description")%>" required /><br/><br/>
         <% 
         
         String s=rs.getString("ends");
         String s1=s.substring(0,10);
         String s2=s.substring(11,19);
         %>
-        End of bid: <input type="date" name="dt" value=<%=s1%> /> <input type="time" name="tm"  value=<%=s2%> step="1"/><br/><br/>
+        End of bid: <input type="date" name="dt" value=<%=s1%> required /> <input type="time" name="tm"  value=<%=s2%> step="1" required /><br/><br/>
         <%
         if(rs.getString("hasstarted").equals("1")){ %>
         Start bid: Bid has already started <br/> <br/> 

@@ -7,13 +7,16 @@
         <title>Manage Page</title>
     </head>
     <body>
+        <% if (session.getAttribute("user")==null) { 
+        response.sendRedirect("/homepage.jsp");
+         } %>
         <a href="homepage.jsp">Homepage</a>
         <a href="manage.jsp">Manage bids</a>
         <a href="navigate.jsp">Search/Navigate bids</a>
         <% if (session.getAttribute("user")!=null) { %>
         <a href="./jsp/logout.jsp">Log-out</a>
         <% } else{ %>
-        <a href="startpage.html">Log-in/Sign-up</a>
+        <a href="startpage.jsp">Log-in/Sign-up</a>
         <% } %>
         </br>
         </br>

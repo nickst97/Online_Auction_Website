@@ -4,15 +4,63 @@
         <title>Navigate bids</title>
         <%@ page import ="java.sql.*" %>
         <%@ page import ="javax.sql.*" %>
+        <%@ page import = "java.util.Date" %>
+        <%@ page import = "java.text.SimpleDateFormat" %>
     </head>
     <body>
+            <% //check if end date has passed
+            Class.forName("com.mysql.jdbc.Driver");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/login","root","");
+            Statement st_10=con.createStatement();
+            int hasn=2;
+            ResultSet rs_10=st_10.executeQuery("SELECT * FROM item WHERE hasstarted != '" + hasn + "'");
+            SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date datec=new Date();
+            /* for every item */
+            while(rs_10.next()){
+                String enddate=rs_10.getString("ends");
+                Date edf=sdf.parse(enddate);
+                /* if date passed */
+                if(enddate.compareTo(sdf.format(datec))<0){
+                    Statement st_11=con.createStatement();
+                    int hasch=2;
+                    /* end it */
+                    int lch=st_11.executeUpdate("UPDATE item SET hasstarted = '" + hasch + "' WHERE item_id= '" + rs_10.getString("item_id") + "'");
+                    Statement st_12=con.createStatement();
+                    ResultSet rs_12=st_12.executeQuery("SELECT * FROM item WHERE item_id = '" + rs_10.getString("item_id") + "'");
+                    /* find item */
+                    if(rs_12.next()){
+                        /* get current max */
+                        float curr=Float.parseFloat(rs_12.getString("currently"));
+                        Statement st_13=con.createStatement();
+                        ResultSet rs_13=st_13.executeQuery("SELECT * FROM bid WHERE item_id = '" + rs_10.getString("item_id") + "'");
+                        /* for every bid of this item */
+                        while(rs_13.next()){
+                            float amount=Float.parseFloat(rs_13.getString("amount"));
+                            /* if max,won */
+                            if(Float.compare(curr,amount)==0){
+                                String seller=rs_12.getString("seller_id");
+                                String usrw=rs_13.getString("user_id");
+                                Statement st_14 = con.createStatement();
+                                int lp=st_14.executeUpdate("insert into won (item_id,bidder,seller) values ('" + rs_10.getString("item_id") + "','" + usrw + "','" + seller + "')");
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            //ends here
+        %>
+        <% if (session.getAttribute("user")==null) { 
+        response.sendRedirect("/homepage.jsp");
+         } %>
         <a href="homepage.jsp">Homepage</a>
         <a href="manage.jsp">Manage bids</a>
         <a href="navigate.jsp">Search/Navigate bids</a>
         <% if (session.getAttribute("user")!=null) { %>
         <a href="./jsp/logout.jsp">Log-out</a>
         <% } else{ %>
-        <a href="startpage.html">Log-in/Sign-up</a>
+        <a href="startpage.jsp">Log-in/Sign-up</a>
         <% } %>
         </br>
         </br>
@@ -22,8 +70,6 @@
         <%
             Object o=session.getAttribute("user");
             String usr=(String)o;
-            Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/login","root","");
             Statement st = con.createStatement();
             Statement st_2 = con.createStatement();
             Statement st_3 = con.createStatement();
@@ -31,6 +77,7 @@
             int val=1;
             ResultSet rs=st.executeQuery("SELECT * FROM item WHERE seller_id = '" + usr + "' AND hasstarted = '" + val + "' ");
             %>
+            <!-- Live bids navigation (hasstarted==1) -->
             <p><b> Live Bids of <%=usr%></b></p>
             <%
             while(rs.next()){
@@ -102,23 +149,30 @@
             %>
             <p><b> Bids:</b></p>
             <%
-            while(bidrs.next()){ %>
+            while(bidrs.next()){ 
+                Statement st_5 = con.createStatement();
+                ResultSet bidderrs=st_5.executeQuery("SELECT * FROM bidder WHERE user_id= '" + bidrs.getString("user_id") + "'");
+            
+                %>
               <table cellspacing='5'>
                   <tr>
                   <td valing='top' aling='left'><b>Bidder username:</b></td>
                   <td valing='top' aling='right'><b><%=bidrs.getString("user_id")%></b></td>
                   <tr>
+                  <% if(bidderrs.next()){ %>
                   <td valing='top' aling='left'><b>Location:</b></td>
-                  <td valing='top' aling='right'><b><%=bidrs.getString("location")%></b></td>
+                  <td valing='top' aling='right'><b><%=bidderrs.getString("location")%></b></td>
               </tr>
               <tr>
                   <td valing='top' aling='left'><b>Country:</b></td>
-                  <td valing='top' aling='right'><b><%=bidrs.getString("country")%></b></td>
+                  <td valing='top' aling='right'><b><%=bidderrs.getString("country")%></b></td>
               </tr>
+              <% } %>
               <tr>
                   <td valing='top' aling='left'><b>Time:</b></td>
                   <td valing='top' aling='right'><b><%=bidrs.getString("time")%></b></td>
               </tr>
+                
               <tr>
                   <td valing='top' aling='left'><b>Amount:</b></td>
                   <td valing='top' aling='right'><b><%=bidrs.getString("amount")%></b></td>
