@@ -37,23 +37,19 @@
                    startval=1;
             else
                    startval=0;
-            }
-            out.println("b;a "+date+" y y "+enddate);
-            if(category!=null)
-            for(int i=0;i<category.length;i++)
-                out.println(uname+category[i]);
+            };
             Class.forName("com.mysql.jdbc.Driver");
             java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/login","root","");
             Statement st = con.createStatement();
             int l=st.executeUpdate("insert into item (name,currently,first_bid,buy_price,number_of_bids,location,country,started,ends,seller_id,description,hasstarted) values('" + name + "','" + firstbid + "', '" + firstbid + "','" + buyprice + "','" + num + "', '" + location + "','" + country + "', '" + date + "', '" + enddate + "','" + usr + "','" + description + "','" + startval+ "')");
             ResultSet rs=st.executeQuery("select * from item order by item_id desc limit 1");
             if(rs.next()){
-            String id=rs.getString(1);
-            int idi=Integer.valueOf(id);
-            for(int k=0;k<category.length;k++)
-                l=st.executeUpdate("insert into category (item_id,category_name) values ('" + idi + "','" + category[k] + "')");
-            for(int k=0;k<img.length;k++)
-                l=st.executeUpdate("insert into photo (item_id,photo_data) values ('" + idi + "','" + img[k] + "')");
+                String id=rs.getString(1);
+                int idi=Integer.valueOf(id);
+                for(int k=0;k<category.length;k++)
+                    l=st.executeUpdate("insert into category (item_id,category_name) values ('" + idi + "','" + category[k] + "')");
+                for(int k=0;k<img.length;k++)
+                    l=st.executeUpdate("insert into photo (item_id,photo_data) values ('" + idi + "','" + img[k] + "')");
             }
             response.sendRedirect("../homepage.jsp");
         %>
