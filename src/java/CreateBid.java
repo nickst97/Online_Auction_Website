@@ -1,18 +1,35 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <title>Create Bid</title>
-    </head>
-    <body>
-        <%@ page import ="java.sql.*" %>
-        <%@ page import ="javax.sql.*" %>
-        <%@ page import = "java.util.Date" %>
-        <%@ page import = "java.text.SimpleDateFormat" %>
-        <%@ page import = "java.io.InputStream" %>
-        <% 
+
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import javax.servlet.http.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.sql.Statement;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+@WebServlet(urlPatterns = {"/CreateBid"})
+public class CreateBid extends HttpServlet {
+
+    private static final long serialVersionUID = 1L;
+
+    public CreateBid() {
+        super();
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        try {
+            HttpSession session = request.getSession(false);
             Object o=session.getAttribute("user");
             String usr=(String)o;
             SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -39,7 +56,7 @@
                    startval=0;
             };
             Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/login","root","");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","");
             Statement st = con.createStatement();
             int l=st.executeUpdate("insert into item (name,currently,first_bid,buy_price,number_of_bids,location,country,started,ends,seller_id,description,hasstarted) values('" + name + "','" + firstbid + "', '" + firstbid + "','" + buyprice + "','" + num + "', '" + location + "','" + country + "', '" + date + "', '" + enddate + "','" + usr + "','" + description + "','" + startval+ "')");
             ResultSet rs=st.executeQuery("select * from item order by item_id desc limit 1");
@@ -51,7 +68,9 @@
                 for(int k=0;k<img.length;k++)
                     l=st.executeUpdate("insert into photo (item_id,photo_data) values ('" + idi + "','" + img[k] + "')");
             }
-            response.sendRedirect("../homepage.jsp");
-        %>
-    </body>
-</html>
+            response.sendRedirect("../../web/homepage.jsp");
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+}

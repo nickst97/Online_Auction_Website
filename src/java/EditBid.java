@@ -1,22 +1,39 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <title>Create Bid</title>
-    </head>
-    <body>
-        <%@ page import ="java.sql.*" %>
-        <%@ page import ="javax.sql.*" %>
-        <%@ page import = "java.util.Date" %>
-        <%@ page import = "java.text.SimpleDateFormat" %>
-        <% 
+
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import javax.servlet.http.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.sql.Statement;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+@WebServlet(urlPatterns = {"/EditBid"})
+public class EditBid extends HttpServlet {
+
+    private static final long serialVersionUID = 1L;
+
+    public EditBid() {
+        super();
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        try {
             String val=request.getParameter("sbm");
             String idd=request.getParameter("item_id");
             int idf=Integer.parseInt(idd);
             Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/login","root","");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","");
             Statement st = con.createStatement();
             Statement st_2 = con.createStatement();
             Statement st_3 = con.createStatement();
@@ -24,9 +41,10 @@
                 int rs=st.executeUpdate("DELETE FROM category WHERE item_id = '" + idf + "' ");
                 rs=st_2.executeUpdate("DELETE FROM photo WHERE item_id = '" + idf + "' ");
                 rs=st_3.executeUpdate("DELETE FROM item WHERE item_id = '" + idf + "' ");
-                response.sendRedirect("../editbids.jsp");
+                response.sendRedirect("../../web/editbids.jsp");
             }
             else{
+                HttpSession session = request.getSession(false);
                 Object oo=session.getAttribute("user");
                 String usr=(String)oo;
                 SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -62,8 +80,10 @@
                 int rss=st.executeUpdate("DELETE FROM category WHERE item_id = '" + idf + "' ");
                 for(int k=0;k<category.length;k++)
                     l=st.executeUpdate("insert into category (item_id,category_name) values ('" + idf + "','" + category[k] + "')");
-                response.sendRedirect("../homepage.jsp");
+                response.sendRedirect("../../web/homepage.jsp");
             }
-        %>
-    </body>
-</html>
+        } catch (ClassNotFoundException | SQLException  ex) {
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+}

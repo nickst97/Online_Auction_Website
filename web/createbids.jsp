@@ -16,7 +16,7 @@
         <a href="manage.jsp">Manage bids</a>
         <a href="navigate.jsp">Search/Navigate bids</a>
         <% if (session.getAttribute("user")!=null) { %>
-        <a href="./jsp/logout.jsp">Log-out</a>
+        <a href="LogoutServlet">Log-out</a>
         <% } else{ %>
         <a href="startpage.jsp">Log-in/Sign-up</a>
         <% } %>
@@ -26,12 +26,12 @@
         <a href="navigatebids.jsp">Navigate live bids</a>
         <a href="editbids.jsp">Edit/Delete not live bids</a>
         <!-- Bid creation -->
-        <form action="./jsp/createbid.jsp" method="post">
+        <form action="CreateBid" method="post">
         Create a bid: <br/><br/>
         Name: <input type="text" name="name" placeholder="Bid name" required /><br/><br/>
         Categories: </br>
         <%  Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/login","root","");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","");
             Statement st = con.createStatement();
             ResultSet rs=st.executeQuery("SELECT * FROM category_labels"); 
             while(rs.next()){ %>

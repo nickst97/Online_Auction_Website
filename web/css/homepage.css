@@ -114,8 +114,23 @@ form {
     position: absolute;
     height: 50px;
     padding: 8px;
-    padding-left: 1px;
+    padding-left: 0.5px;
     margin-left: 3px;  
     top: 50%;
     transform: translate(-50%, -50%);
+}
+
+#chat_icon, #exit_icon{
+    display: inline-block;
+    height: 50px;
+    padding: 8px;
+    margin-left: 5px;
+}
+
+#chat_icon:hover{
+    content: url('../img/icons/chat_icon_v2_hover.png');
+}
+
+#exit_icon:hover{
+    content: url('../img/icons/exit_icon_v2_hover.png');
 }

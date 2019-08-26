@@ -19,14 +19,8 @@
             <div class="welcome_box">
                 User Administrator Page
             </div>
-            <div class="icon_list">
-                <div class="icon">
-                    <img src="./img/icons/profile_icon.png">
-                    <div class="overlay">
-                        <a href="LogoutServlet" class="icon_hover"><img src="./img/icons/profile_icon_hover.png"></a>
-                    </div>
-                </div>
-            </div>
+                <a href="./inbox.jsp"><img id="chat_icon" src="./img/icons/chat_icon_v2.png" alt="Messages" title="Messages"></a>
+                <a href="LogoutServlet"><img  id="exit_icon" src="./img/icons/exit_icon_v2.png"  alt="Sign Out" title="Sign Out"></a>
         </div>
         <div class="main_body">
             <div class="row">

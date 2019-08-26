@@ -14,7 +14,7 @@
         <% } %>
         <a href="navigate.jsp">Search/Navigate bids</a>
         <% if (session.getAttribute("user")!=null) { %>
-        <a href="./jsp/logout.jsp">Log-out</a>
+        <a href="LogoutServlet">Log-out</a>
         <% } else{ %>
         <a href="startpage.jsp">Log-in/Sign-up</a>
         <% } %>
@@ -23,7 +23,7 @@
         Choose a category:
         <select name="cat" >
             <%  Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/login","root","");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","");
             Statement st = con.createStatement();
             ResultSet rs=st.executeQuery("SELECT * FROM category_labels"); 
             while(rs.next()){ %>

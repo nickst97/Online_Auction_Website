@@ -13,7 +13,7 @@
         <% } %>
         <a href="navigate.jsp">Search/Navigate bids</a>
         <% if (session.getAttribute("user")!=null) { %>
-        <a href="./jsp/logout.jsp">Log-out</a>
+        <a href="LogoutServlet">Log-out</a>
         <% } else{ %>
         <a href="startpage.jsp">Log-in/Sign-up</a>
         <% } %>

@@ -66,6 +66,7 @@ public class LoginServlet extends HttpServlet {
                             return;
                         } else {
                             session.setAttribute("user_type", "user_ok");
+                            session.setAttribute("user", uname);
                             response.sendRedirect("homepage");
                             return;
                         }

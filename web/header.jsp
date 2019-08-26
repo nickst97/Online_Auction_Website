@@ -7,14 +7,8 @@
         <link rel="stylesheet" href="./css/homepage.css">
         <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
-<!--        <script>// this doesnt work
-            $(function () {
-                $("#header").load("../header.jsp");
-            });
-        </script>-->
     </head>
     <body>
-
         <div class="header">
             <a class="logo" href="#">
                 <img alt="homepage" src="./img/logo/logo_350x150.png">
@@ -39,13 +33,21 @@
 
                 <!--                if verified user-->
                 <% } else { %>
-                <a href="./inbox.jsp"><img id="chat_icon" src="./img/icons/chat_icon_v2.png" alt="Messages" title="Messages"></a>
-                <a href="LogoutServlet"><img  id="exit_icon" src="./img/icons/exit_icon_v2.png"  alt="Sign Out" title="Sign Out"></a>
+                <div class="icon">
+                    <img src="././img/icons/chat_icon_v2.png" alt="Messages">
+                    <div class="overlay">
+                        <a href="./inbox.jsp" class="icon_hover"><img src="./img/icons/chat_icon_v2_hover.png" alt="Messages" title="Messages"></a>
+                    </div>
+                </div>
+                <div class="icon">
+                    <img src="./img/icons/exit_icon_v2.png" alt="Sign Out">
+                    <div class="overlay">
+                        <a href="/LogoutServlet" class="icon_hover"><img src="./img/icons/exit_icon_v2_hover.png"  alt="Sign Out" title="Sign Out"></a>
+                    </div>
+                </div>
+
                 <% }%>
             </div>
-        </div>
-        <div class="main_body">
-            
         </div>
     </body>
 </html>

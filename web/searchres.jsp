@@ -12,7 +12,7 @@
     <body>
         <%  //code to check if item end date has passed
             Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/login","root","");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","");
             Statement st_10=con.createStatement();
             int hasn=2;
             ResultSet rs_10=st_10.executeQuery("SELECT * FROM item WHERE hasstarted != '" + hasn + "'");
@@ -59,7 +59,7 @@
         <% } %>
         <a href="navigate.jsp">Search/Navigate bids</a>
         <% if (session.getAttribute("user")!=null) { %>
-        <a href="./jsp/logout.jsp">Log-out</a>
+        <a href="LogoutServlet">Log-out</a>
         <% } else{ %>
         <a href="startpage.jsp">Log-in/Sign-up</a>
         <% } %>
@@ -110,7 +110,7 @@
             ResultSet rs=null;
             ResultSet cattrs=null;
             // if category input
-            if(val.equals("f1") || val.equals("f2")){   //category input
+        if(val.equals("f1") || val.equals("f2")){   //category input
                 String cat=request.getParameter("cat");
                 cattrs=st.executeQuery("SELECT * FROM category WHERE category_name = '" + cat + "'");
                 if(!cattrs.isBeforeFirst()){
@@ -199,14 +199,11 @@
             <input name="item_id" type="hidden" value=<%=rs_2.getString(1)%> />
             Place bid:<input type="submit" name="sbm" value="Place bid" />
             </form> <%
-            }
-            }
-            }
-                if(times==0){
-                    %> <p>No results match the search</p> <%
                 }
             }
-            else{   //not category input
+            }
+            }
+        else{   //not category input
                 int vall=1;
                 if(val.equals("f3")){
                     String loc=request.getParameter("loc");

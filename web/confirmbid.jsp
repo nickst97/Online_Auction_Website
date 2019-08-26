@@ -17,7 +17,7 @@
         <% } %>
         <a href="navigate.jsp">Search/Navigate bids</a>
         <% if (session.getAttribute("user")!=null) { %>
-        <a href="./jsp/logout.jsp">Log-out</a>
+        <a href="LogoutServlet">Log-out</a>
         <% } else{ %>
         <a href="startpage.jsp">Log-in/Sign-up</a>
         <% } %>
@@ -25,7 +25,7 @@
             String idd=request.getParameter("item_id");
             int idf=Integer.parseInt(idd);
             Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/login","root","");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","");
             Statement st = con.createStatement();
             Statement st_2 = con.createStatement();
             Statement st_3 = con.createStatement();
@@ -113,7 +113,7 @@
             </br>
             </br>
             <!-- confirm data -->
-            <form action="./jsp/uploadbid.jsp" method="post">
+            <form action="UploadBid" method="post">
             <input name="item_id" type="hidden" value=<%=rs.getString(1)%> />
             Buy Price: <input type="number" name="buyp" value=<%=fval%> step="0.01" min=<%=rs.getString("currently")%> max=<%=rs.getString("buy_price")%> placeholder="ex 1.5" required /><br/>
             Confirm bid:<input type="submit" name="sbm" value="Place bid" />
