@@ -1,9 +1,6 @@
-
 import java.io.IOException;
-import static java.lang.System.out;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -73,7 +70,6 @@ public class RegistrationServlet extends HttpServlet {
             int i = st.executeUpdate("insert into Users (uname, password, fname, lname, email, phone, address, tin) values ('" + uname + "', '" + hashedpasswd.toString() + "', '" + fname + "', '" + lname + "', '" + email + "', '" + phone + "', '" + address + "', '" + tin + "')");
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/verify_wait.html");
             dispatcher.forward(request, response);
-            return;
         } catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException ex) {
             Logger.getLogger(RegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

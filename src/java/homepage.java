@@ -1,6 +1,4 @@
-
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-//CURRENT SERVLET REDIRECTS TO HOMEPAGES, OLD "homepage"
 @WebServlet("/homepage")
 public class homepage extends HttpServlet {
 
@@ -21,6 +18,7 @@ public class homepage extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session != null) {
             String user_type = (String) session.getAttribute("user_type");
+//            do not fix the below if's with the NetBeans suggestion
             if (user_type.equals("admin"))  {
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/users_preview.jsp");
                 dispatcher.forward(request, response);
@@ -28,11 +26,9 @@ public class homepage extends HttpServlet {
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/verify_wait.html");
                 dispatcher.forward(request, response);
             } else if ((user_type.equals("user_ok")) || (user_type.equals("visitor"))) {
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/homepage.jsp");
-                dispatcher.forward(request, response);
+                response.sendRedirect("./homepage.jsp");
             } else {
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/startpage.jsp");
-                dispatcher.forward(request, response);
+                response.sendRedirect("./startpage.jsp");
             }
         }
 

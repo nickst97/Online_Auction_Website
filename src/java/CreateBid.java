@@ -1,7 +1,4 @@
-
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
