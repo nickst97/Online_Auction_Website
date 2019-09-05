@@ -1,55 +1,130 @@
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import ="java.sql.*" %>
+<%@ page import ="javax.sql.*" %>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <title>Create bid</title>
-        <%@ page import ="java.sql.*" %>
-        <%@ page import ="javax.sql.*" %>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>biddit - Create Bid</title>
+        <link rel="stylesheet" href="./css/homepage.css">
+        <link rel="stylesheet" href="./css/createbids.css">
+        <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script>
+            $(function () {
+                $("#header").load("./jsp/header.jsp");
+            });
+        </script>
+        <% session.setAttribute("active_tab", "tab_1"); %>
+
     </head>
     <body>
-        <% if (session.getAttribute("user")==null) { 
-        response.sendRedirect("/homepage.jsp");
-         } %>
-        <a href="homepage.jsp">Homepage</a>
-        <a href="manage.jsp">Manage bids</a>
-        <a href="navigate.jsp">Search/Navigate bids</a>
-        <% if (session.getAttribute("user")!=null) { %>
-        <a href="LogoutServlet">Log-out</a>
-        <% } else{ %>
-        <a href="startpage.jsp">Log-in/Sign-up</a>
-        <% } %>
-        </br>
-        </br>
-        <a href="createbids.jsp">Create a bid</a>
-        <a href="navigatebids.jsp">Navigate live bids</a>
-        <a href="editbids.jsp">Edit/Delete not live bids</a>
-        <!-- Bid creation -->
-        <form action="CreateBid" method="post">
-        Create a bid: <br/><br/>
-        Name: <input type="text" name="name" placeholder="Bid name" required /><br/><br/>
-        Categories: </br>
-        <%  Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","");
-            Statement st = con.createStatement();
-            ResultSet rs=st.executeQuery("SELECT * FROM category_labels"); 
-            while(rs.next()){ %>
-            <input type="checkbox" name="cat" value=<%=rs.getString("category_name")%> ><%=rs.getString("category_name")%></input>
-        <% } %>    
-        <br/><br/>
-        Buy Price: <input type="number" name="buyp" step="0.01" min="0" placeholder="ex 1.5" required/><br/><br/>
-        First Bid: <input type="number" name="firstb" step="0.01" min="0" placeholder="ex 1.5" required/><br/><br/>
-        Location: <input type="text" name="loc" placeholder="ex Athens" required/><br/><br/>
-        Country: <input type="text" name="country" placeholder="ex Greece" required/><br/><br/>
-        Description: <input type="text" name="desc" placeholder="Type a description of the item" required/><br/><br/>
-        End of bid: <input type="date" name="dt" required /> <input type="time" name="tm" step="1" required/><br/><br/>
-        Attach images: <input type="file" name="img" multiple /><br/><br/>
-        Start bid: <br/> <br/>
-        <input type="radio" name="start" value="Yes" checked>Yes<br/><br/>
-        <input type="radio" name="start" value="No">No<br/><br/>
-        <br/><br/>
-        Create bid:<input type="submit" name="create" value="Submit bid"/><br/><br/>
-        </form>
+        <div id="header"> </div>
+        <div class="main_body">
+            <div class="page_title">
+                <span>Upload your Item for Bidding</span>
+            </div>
+            <form action="CreateBid" method="post" class="creation_form" enctype="multipart/form-data">
+
+                <!--Name-->
+                <div class="field_options" id="box70">
+                    <span id="field_title"> Item Title</span>
+                    <input type="text" name="name" required>
+                </div>
+
+                <!--Categories-->
+                <div class="field_options" id="box30_long">
+                    <span id="field_title"> Choose Categories</span>
+                    <div class="panel">
+                        <div id="left">
+                            <%                                Class.forName("com.mysql.jdbc.Driver");
+                                java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
+                                Statement st = con.createStatement();
+                                ResultSet rs = st.executeQuery("SELECT * FROM category_labels ORDER BY category_name limit 15");
+                                while (rs.next()) {
+                            %>
+                            <input type="checkbox" name="cat" value=<%=rs.getString("category_name")%> ><%=rs.getString("category_name")%> </input> </br>
+                            <%
+                                }
+                            %>    
+                        </div>
+                        <div id="right">
+                            <%
+                                Class.forName("com.mysql.jdbc.Driver");
+                                rs = st.executeQuery("SELECT * FROM category_labels ORDER BY category_name limit 15,30");
+                                while (rs.next()) {
+                            %>
+                            <input type="checkbox" name="cat" value=<%=rs.getString("category_name")%> ><%=rs.getString("category_name")%> </input>  </br>
+                            <%
+                                }
+                            %>    
+                        </div>
+                    </div>
+                </div>
+
+                <!--Buy Price-->
+                <div class="field_options" id="box35">
+                    <span id="field_title"> Buy Price</span>
+                    <input type="number" name="buyp" step="0.01" min="0" required>
+                </div>
+
+                <!--First Bid-->
+                <div class="field_options" id="box35">
+                    <span id="field_title"> Start Price</span>
+                    <input type="number" name="firstb" step="0.01" min="0" required>
+                </div>
+
+                <!--Location-->
+                <div class="field_options" id="box35">
+                    <span id="field_title"> City</span>
+                    <input type="text" name="loc" required>
+                </div>
+
+                <!--Country-->
+                <div class="field_options" id="box35">
+                    <span id="field_title"> Country</span>
+                    <input type="text" name="country" required>
+                </div>
+
+                <!--Description-->
+                <div class="field_options" id="box70">
+                    <span id="field_title"> Description</span>
+                    <textarea type="text" name="desc" style="height: 93px;" required> </textarea>
+                </div>
+
+                <!--End of bid Date-->
+                <div class="field_options" id="box30">
+                    <span id="field_title"> Date</span>
+                    <input type="date" name="dt" required>
+                </div>
+
+                <!--End of bid Time-->
+                <div class="field_options" id="box30">
+                    <span id="field_title"> Time</span>
+                    <input type="time" name="tm" step="1" required>
+                </div>
+
+                <!--Images-->
+                <div class="field_options" id="box35">
+                    <span id="field_title"> Add Images</span>
+                    <input type="file" name="img" multiple>
+                </div>
+
+                <!--Start Bid Option-->
+                <div class="field_options" id="box_radio">
+                    <span id="field_title"> Start Bid? </span>
+                    <input type="radio" name="start" value="Yes" checked> Yes
+                    <input type="radio" name="start" value="No"> No
+                </div>
+                <!--Coordinates-->
+                <!--Latitude-->
+                <input type="hidden" name="lat" value="25" min="-90" max="90" placeholder="10" step="0.00000001" required/>
+                <!--Longitude:-->
+                <input type="hidden" name="lon" value="49" min="-90" max="90" placeholder="10" step="0.00000001" required/>
+                <!--Submit Button-->
+                <button type="submit" name="create" value="Submit bid" class="button button-block"/>Send your item!</button>
+            </form>
+        </div>
     </body>
 </html>

@@ -6,7 +6,8 @@
         <title>biddit - Welcome!</title>
         <link rel="stylesheet" href="./css/startpage.css">
         <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
-        <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="./img/favicon.ico" type="image/x-icon">            
+        <% session.removeAttribute("active_tab"); %>
     </head>
     <body>
         <%

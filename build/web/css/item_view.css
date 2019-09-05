@@ -1,0 +1,306 @@
+@font-face {
+    font-family: 'poppins';
+    src: url('../img/poppins/Poppins-Regular.ttf') format('truetype');
+}
+* {
+    font-family: 'poppins';
+    box-sizing: border-box;
+}
+
+:root {
+    --site_orange: #ff4500;
+    --site_orange_shadow: #B23000;
+    --site_gray_dark: #4f4f51;
+    --site_gray_light: #d6d6d6;
+    --site_black: #2c2b30;
+}
+
+body { 
+    margin: 0;
+    font-family: 'poppins';
+    background-color: #f8fafb;
+}
+
+.main_body{
+    display: flex;
+    justify-content: center;
+    padding: 50px 10% 10px 10%;
+    padding-top: 107px;
+}
+
+.page_title{
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 70px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 22px;
+    line-height: 70px;
+    letter-spacing: 2px;
+    text-decoration: underline;
+    z-index: -1;
+}
+
+.item_container {
+    z-index: -2;
+    margin-top: 70px;
+    padding: 0 15px 100px;
+    display: flex;
+    background-color: white;
+    border: 0.5px solid #a9b1b0;
+    width: 100%;
+    height: auto;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+}
+
+.photo_gallery{
+    height: 300px;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+.photo_gallery:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.photo_gallery .column {
+    display: inline-block;
+    float: left;
+    width: auto;
+    margin: 7px 7px 3px 7px;
+}
+
+.photo_gallery .column img {
+    opacity: 1; 
+    cursor: pointer;
+}
+
+.photo_gallery .column img:hover {
+    opacity: 1;
+}
+
+.photo_gallery .row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.photo_gallery .img_container {
+    z-index: -1;
+    position: absolute;
+    display: none;
+    margin: 0;
+    top: 200px;
+    width:40%;
+    background-position: center center;
+    background-size: cover;
+}
+
+.photo_gallery .img_container #expandedImg{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.info_section{
+    height: 300px;
+    width: 50%;
+    margin: 15px 10px 0 0;
+    padding: 0 10px 0 10px;
+}
+
+.info_section .title{
+    border-bottom: 3px solid black;
+    margin: 10px 25px 10px 25px;
+    height: 30px;
+    text-align: center;
+}
+
+.info_section .title span{
+    padding: 0 5px 0 5px;
+    font-size: 19px;
+}
+
+.info_section .half_panel{
+    overflow: hidden;
+    width: 50%;
+    height: auto;
+}
+
+.info_section .half_panel a,
+.info_section .half_panel a:visited,
+.info_section .half_panel a:hover,
+.info_section .half_panel a:active{
+    text-decoration: none;
+    color: inherit;
+}
+
+.info_section .half_panel a:hover{
+    text-decoration: underline;
+    color: inherit;
+}
+
+.info_section .full_panel{
+    display: table;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    padding-top: 10px;
+}
+
+.placebid_button_container{
+    position: absolute;
+    width: 80%;
+    margin-top: 400px;
+    height: 105px;
+    display: table;
+    border-radius: 10px;
+    border: 0.5px solid #a9b1b0;
+    border-top: 0.5px solid transparent;
+}
+
+.placebid_button_container #placebid_button_form{
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    box-shadow: none;
+}
+
+#custom_box{
+    width: 230px;
+    height: 60px;
+    border: 1px solid var(--site_orange);
+    border-radius: 10px;
+    background-color: var(--site_orange);
+    margin: 0px auto;
+    box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+}
+
+.placebid_button_container input[type=number]{
+    width: 100px;
+    height: 50px;
+    padding-top: 5px;
+    margin-top: 4px;
+    font-size: 28px;
+    text-align: right;
+    box-shadow: none;
+    color: black;
+    border: 1px solid var(--site_orange);
+    border-color: var(--site_orange);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background-color: var(--site_orange);
+}
+
+.placebid_button_container input[type=number]:focus{
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+input[type=submit] {
+    width: 120px;
+    height: 50px;
+    background-color: var(--site_orange);
+    border: none;
+    color: black;
+    padding: auto 5px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 19px;
+}
+
+input[type=submit]:hover {
+    font-weight: bold;
+}
+
+.placebid_button_container input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+}
+
+::-webkit-input-placeholder {
+    font-style: italic;
+    color: #a9b1b0;
+}
+:-moz-placeholder {
+    font-style: italic;  
+    color: #a9b1b0;
+}
+::-moz-placeholder {
+    font-style: italic;  
+    color: #a9b1b0;
+}
+:-ms-input-placeholder {  
+    font-style: italic; 
+    color: #a9b1b0;
+}
+
+.bidder_container{
+    z-index: -2;
+    position: absolute;
+    width: 80%;
+    height: auto;
+    margin: 500px 0 30px;
+    padding: 30px 15px;
+    display: table;
+    border-radius: 10px;
+    border: 0.5px solid #a9b1b0;
+    border-top: 0.5px solid transparent;
+    background-color: white;
+    box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+    text-align: center;
+}
+
+.bidder_title{
+    font-size: 20px;
+    text-decoration: underline;
+}
+
+.bidder_info{
+    font-size: 17px;
+    padding-right: 25px;
+}
+
+.edit_button{
+    margin-top: 390px;
+    padding-left: 1040px;
+    position: absolute;
+    width:60px;
+    height:60px;
+}
+
+.delete_button{
+    margin-top: 50px;
+    padding-left: 1040px;
+    position: absolute;
+    width:60px;
+    height:60px;
+}
+
+.delete_button input[type=submit] {
+    background: url(../img/icons/edit_icon.png);
+    background-size: 60px 60px;
+    color: transparent;
+    border: 0;
+    display: block;
+    width:60px;
+    height:60px;
+}
+
+#placebid_id{
+    height: auto;
+}
+
+#placebid_id:active, #placebid_id:focus {
+    outline:none;
+}

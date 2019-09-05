@@ -1,4 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins');
+@font-face {
+    font-family: 'poppins';
+    src: url('../img/poppins/Poppins-Regular.ttf') format('truetype');
+}
+* {
+    font-family: 'poppins';
+    box-sizing: border-box;
+}
+
 
 :root {
     --site_orange: #ff4500;
@@ -19,7 +27,7 @@ html {
 body {
     background: url(../img/background.png) top left repeat;
     background-size: 25%;
-    font-family: "Poppins", sans-serif;
+    font-family: 'poppins';
 }
 
 a {
@@ -81,33 +89,6 @@ h1 {
     color: #ffffff;
     font-weight: 300;
     margin: 0 0 40px;
-}
-
-label {
-    position: absolute;
-    -webkit-transform: translateY(6px);
-    transform: translateY(6px);
-    top: 4px;
-    left: 13px;
-    color: var(--site_gray_light);
-    transition: all 0.25s ease;
-    -webkit-backface-visibility: hidden;
-    pointer-events: none;
-    font-size: 18px;
-}
-
-label.active {
-    -webkit-transform: translateY(50px);
-    transform: translateY(50px);
-    left: 2px;
-    font-size: 14px;
-}
-label.active .req {
-    opacity: 0;
-}
-
-label.highlight {
-    color: #ffffff;
 }
 
 input, textarea {

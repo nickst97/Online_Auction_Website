@@ -1,0 +1,163 @@
+@font-face {
+    font-family: 'poppins';
+    src: url('../img/poppins/Poppins-Regular.ttf') format('truetype');
+}
+* {
+    font-family: 'poppins';
+    box-sizing: border-box;
+}
+
+:root {
+    --site_orange: #ff4500;
+    --site_orange_shadow: #B23000;
+    --site_gray_dark: #4f4f51;
+    --site_gray_light: #d6d6d6;
+    --site_black: #2c2b30;
+}
+
+body { 
+    margin: 0;
+    font-family: 'poppins';
+    background-color: #f8fafb;
+}
+
+.main_body{
+    justify-content: center;
+    padding: 50px 10% 10px 10%;
+    padding-top: 107px;
+}
+
+.search_form{
+    width: 400px;
+    height: auto;
+    text-align: center;
+    box-shadow: none;
+}
+
+#field_title{
+    padding: 10px 10px 10px 5px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    display: block;
+}
+
+#field, #price{
+    display: block;
+    margin: 15px;
+}
+
+#field input[type=text], #field select{
+    font-family: "Poppins", sans-serif;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+    width: 300px;
+    height: 50px;
+    background-color: white;
+    cursor: pointer;
+}
+
+#price input[type=number]{
+    font-family: "Poppins", sans-serif;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    resize: vertical;
+    width: 145px;
+    height: 50px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+#price #left{
+    margin-right: 5px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);    
+    transition: background .25s ease-in-out;
+    -moz-transition: background .25s ease-in-out;
+    -webkit-transition: background .25s ease-in-out;
+}
+
+.modal .modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 10px;
+    width: 400px;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+.modal .modal-content .close {
+    color: var( --site_gray_dark);
+    margin: 0 0 5px 5px;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.modal .modal-content .close:hover, .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+.button {
+    font-family: "Poppins", sans-serif;
+    padding: auto;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 30px;
+    vertical-align: middle;
+    border: 0;
+    outline: none;
+    border-radius: 4px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    background: transparent;
+    color: var(--site_orange);
+    transition: all 0.5s ease;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+.button:hover, .button:focus {
+    color: var(--site_orange_shadow);
+}
+
+.button-block {
+    display: inline-block;
+    width: 30px;  
+    height: 50px;
+    margin-right: 20px;
+}

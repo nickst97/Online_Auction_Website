@@ -1,11 +1,15 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins');
-
+@font-face {
+    font-family: 'poppins';
+    src: url('../img/poppins/Poppins-Regular.ttf') format('truetype');
+}
 * {
+    font-family: 'poppins';
     box-sizing: border-box;
 }
 
+
 body{
-    font-family: "Poppins", sans-serif;
+    font-family: 'poppins';
 }
 
 :root {
@@ -32,8 +36,8 @@ body{
 
 /* Create two equal columns that floats next to each other */
 .column {
-    float: left;
-    width: 50%;
+    text-align: center;
+    width: 100%;
     padding: 10px;
     height: 500px; /* Should be removed. Only for demonstration */
 }
@@ -46,8 +50,8 @@ body{
 }
 
 table{
-    margin-right: 700px;
     width: 100%;
+    text-align: center;
 }
 
 td, th {
@@ -59,6 +63,32 @@ th{
     width: 10px;
 }
 
-#bid{
+#verify{
     text-align: right;
+}
+
+.column .button {
+    border: 0;
+    outline: none;
+    border-radius: 4px;
+    padding: 15px 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    background: var(--site_orange);
+    color: #ffffff;
+}
+
+.column .button:hover, column .button:focus {
+    background: var(--site_orange_shadow);
+    color: white;
+}
+
+.column .button-block {
+    display: block;
+    width: 500px;
+    height: 70px;
+    margin: auto;
+    margin-top: 20px;
+    text-decoration: none;
 }

@@ -18,6 +18,10 @@ public class homepage extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session != null) {
             String user_type = (String) session.getAttribute("user_type");
+            
+//            if (session.getAttribute("user_type") == null) { 
+//                response.sendRedirect("./startpage.jsp");
+//            }
 //            do not fix the below if's with the NetBeans suggestion
             if (user_type.equals("admin"))  {
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/users_preview.jsp");
@@ -31,6 +35,7 @@ public class homepage extends HttpServlet {
                 response.sendRedirect("./startpage.jsp");
             }
         }
+
 
     }
 }

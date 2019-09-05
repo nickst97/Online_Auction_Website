@@ -1,4 +1,3 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="javax.sql.*"%>
 <!DOCTYPE html>
@@ -9,9 +8,11 @@
             out.print(uname);%></title>
         <link rel="stylesheet" href="./css/homepage.css">
         <link rel="stylesheet" href="./css/user_review.css">
+        <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
     </head>
-    <body>        
-        <div class="header">
+    <body>
+        <div class="header" style="height: auto;">
             <a class="logo" href="homepage">
                 <img alt="homepage" title="biddit" src="./img/logo/logo_350x150.png">
             </a>
@@ -27,7 +28,7 @@
                 <div class="column">
                     <%
                         Class.forName("com.mysql.jdbc.Driver");
-                        java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "king", "");
+                        java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
                         Statement st = con.createStatement();
                         ResultSet rs = st.executeQuery("select * from Users where uname='" + uname + "'");
                         rs.next();
@@ -56,14 +57,14 @@
                             <th>TIN: </th>
                             <td> <%=rs.getString("tin")%> </td>
                         </tr>
-                        <%
-                            rs.close();
-                        %>
                     </table>
-                </div>
-                <div class="column" id="bid">
-                    <h1>Bought items</h1> <br> <br> <br> <br>
-                    <h1>Sold items</h1>
+
+                    <%if (rs.getString("verified").equals("N")) {%>
+                    <a class="button button-block" href="user_verify?profile_uname=<%= rs.getString("uname")%>"/>Verify this User</a>
+                    <%}%>
+                    <%
+                        rs.close();
+                    %>
                 </div>
             </div>
         </div>

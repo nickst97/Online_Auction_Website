@@ -41,6 +41,10 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>LogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ImageRetrieve</servlet-name>
+        <servlet-class>ImageRetrieve</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CreateBid</servlet-name>
         <url-pattern>/CreateBid</url-pattern>
@@ -80,6 +84,10 @@
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/LogoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ImageRetrieve</servlet-name>
+        <url-pattern>/ImageRetrieve</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

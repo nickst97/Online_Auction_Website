@@ -26,7 +26,7 @@ public class msg_markread extends HttpServlet {
         if (msg_id != null && !msg_id.isEmpty()) {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
-                java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "king", "");
+                java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
                 Statement st = con.createStatement();
                 ResultSet rs;
                 rs = st.executeQuery("select viewed from messages where msg_id = " + msg_id + " limit 1;");
