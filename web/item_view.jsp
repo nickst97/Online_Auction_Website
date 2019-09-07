@@ -21,7 +21,7 @@
     <body>
         <%
             Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/login?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM item WHERE item_id = '" + request.getParameter("item_id") + "'");
         %>
@@ -121,7 +121,7 @@
                 <form action="UploadBid" method="post" id="placebid_button_form" onsubmit="return confirm('Are you sure?');">
                     <div id="custom_box">
                         <input name="item_id" type="hidden" value=<%=rs.getString("item_id")%> />
-                        <input type="number" name="buyp" min=<%=minval%> max=<%=rs.getString("buy_price")%> placeholder="0.00 " required>
+                        <input type="number" name="buyp" step="0.01" min=<%=minval%> max=<%=rs.getString("buy_price")%> placeholder="0.00" required>
                         <input type="submit" name="sbm" id="placebid_id" value="Place bid!" >
                     </div>
                 </form>
