@@ -24,7 +24,7 @@
     <body>
         <%
             Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/login?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM item WHERE item_id = '" + request.getParameter("item_id") + "'");
         %>
@@ -133,11 +133,6 @@
                     <input type="time" name="tm" value=<%=s2%>  step="1" required>
                 </div>
 
-                <!--Images-->
-                <div class="field_options" id="box35">
-                    <span id="field_title"> Add Images</span>
-                    <input type="file" name="img" multiple>
-                </div>
 
                 <!--Start Bid Option-->
                 <%
