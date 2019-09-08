@@ -26,7 +26,7 @@
         <div class="main_body">
             <%
                 Class.forName("com.mysql.jdbc.Driver");
-                java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
+                java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/login?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
                 Statement st = con.createStatement();
                 ResultSet rs = st.executeQuery("SELECT * FROM Users WHERE admin='N' ORDER BY id DESC");
             %>
@@ -69,7 +69,7 @@
                 <font size="3">(DTD template)</font>
                 </a>
                 <a class="dbutton dbutton-block" href="DownloadJSON"/>
-                Download XML
+                Download JSON
                 <font size="3">(JSON template)</font>
                 </a>
             </div>
