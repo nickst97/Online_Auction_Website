@@ -110,17 +110,17 @@
                     Object o = session.getAttribute("user");
                     String usr = (String) o;
                     Statement st_4 = con.createStatement();
-                    //                    ResultSet bidrs = st_4.executeQuery("SELECT * FROM bidder WHERE user_id = '" + usr + "'");
-                    //                    if (!bidrs.isBeforeFirst()) {
-                    //                        Statement st_5 = con.createStatement();
-                    //                        int rgs = st_5.executeUpdate("insert into bidder (user_id,location,country) values ('" + usr + "','" + request.getParameter("loc") + "','" + request.getParameter("country") + "')");
-                    //                    }
+                    ResultSet bidrs = st_4.executeQuery("SELECT * FROM bidder WHERE user_id = '" + usr + "'");
                     double minval = Double.parseDouble(rs.getString("currently"));
                     minval = minval + 0.01;
                 %>
                 <form action="UploadBid" method="post" id="placebid_button_form" onsubmit="return confirm('Are you sure?');">
                     <div id="custom_box">
                         <input name="item_id" type="hidden" value=<%=rs.getString("item_id")%> />
+                        <% if (!bidrs.isBeforeFirst()) { %>
+                                Location: <input type="text" name="loc" placeholder="ex Athens" required/><br/>
+                                Country: <input type="text" name="country" placeholder="ex Greece" required/><br 
+                        <%  %>
                         <input type="number" name="buyp" step="0.01" min=<%=minval%> max=<%=rs.getString("buy_price")%> placeholder="0.00" required>
                         <input type="submit" name="sbm" id="placebid_id" value="Place bid!" >
                     </div>
@@ -142,7 +142,13 @@
                     <input type="submit" name="sbm" value="Delete" title="Delete this item" /><br/><br/>
                     <input name="item_id" type="hidden" value=<%=rs.getString("item_id")%> />
                 </form>
-
+                <% }
+                else if ((!rs.getString("number_of_bids").equals("0")) && (!rs.getString("hasstarted").equals("2"))) {
+            %>
+            <script>
+                document.getElementById('item_container_id').setAttribute("style", "padding-bottom: 40px");
+            </script>
+      
 
                 <div class="page_title" style="margin-top: 430px; z-index: 2; z-index: -1;">
                     <span>Bidds</span>
@@ -167,11 +173,11 @@
                 </div>
                 <% }
                 %>
-
                 <%
+                    }
                             }
                         }
-                    }
+                    
                 %>
             </div>
             <script>
