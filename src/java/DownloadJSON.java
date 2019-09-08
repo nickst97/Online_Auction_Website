@@ -49,17 +49,17 @@ protected void service(HttpServletRequest request,HttpServletResponse response) 
         while(rs.next()){
             rows.add("\t{");
             int id=Integer.parseInt(rs.getString("item_id"));
-            rows.add("\t\t\"ItemID\" : \""+rs.getString("item_id")+"\"");
-            rows.add("\t\t\"Name\" : \""+rs.getString("name")+"\"");
+            rows.add("\t\t\"ItemID\" : \""+rs.getString("item_id")+"\",");
+            rows.add("\t\t\"Name\" : \""+rs.getString("name")+"\",");
             //for every category
             Statement st_2 = con.createStatement();
             ResultSet rs_2=st_2.executeQuery("select * from category where item_id = '" + id + "'");
             while(rs_2.next()){
-                rows.add("\t\t\"Category\" : \""+rs_2.getString("category_name")+"\"");
+                rows.add("\t\t\"Category\" : \""+rs_2.getString("category_name")+"\",");
             }
-            rows.add("\t\t\"Currently\" : \""+rs.getString("currently")+"\"");
-            rows.add("\t\t\"First_Bid\" : \""+rs.getString("first_bid")+"\"");
-            rows.add("\t\t\"Number_of_Bids\" : "+rs.getString("number_of_bids")+"\"");
+            rows.add("\t\t\"Currently\" : \""+rs.getString("currently")+"\",");
+            rows.add("\t\t\"First_Bid\" : \""+rs.getString("first_bid")+"\",");
+            rows.add("\t\t\"Number_of_Bids\" : \""+rs.getString("number_of_bids")+"\",");
             //bid
             Statement st_3 = con.createStatement();
             ResultSet rs_3=st_3.executeQuery("select * from bid where item_id = '" + id + "'");
@@ -72,25 +72,25 @@ protected void service(HttpServletRequest request,HttpServletResponse response) 
                     ResultSet rs_4=st_4.executeQuery("select * from bidder where user_id = '" + rs_3.getString("user_id") + "'");
                     if(rs_4.next()){
                         rows.add("\t\t\t\t\"Bidder\" : {");
-                        rows.add("\t\t\t\t\t\"UserID\" : \""+rs_4.getString("user_id")+"\"");
-                        rows.add("\t\t\t\t\t\"Location\" : \""+rs_4.getString("location")+"\"");      
+                        rows.add("\t\t\t\t\t\"UserID\" : \""+rs_4.getString("user_id")+"\",");
+                        rows.add("\t\t\t\t\t\"Location\" : \""+rs_4.getString("location")+"\",");      
                         rows.add("\t\t\t\t\t\"Country\" : \""+rs_4.getString("country")+"\"");
-                        rows.add("\t\t\t\t}");
+                        rows.add("\t\t\t\t},");
                     }
-                    rows.add("\t\t\t\t\"Time\" : \""+rs_3.getString("time")+"\"");
+                    rows.add("\t\t\t\t\"Time\" : \""+rs_3.getString("time")+"\",");
                     rows.add("\t\t\t\t\"Amount\" : \""+rs_3.getString("amount")+"\"");
-                    rows.add("\t\t\t}");
+                    rows.add("\t\t\t},");
                 }
                 rows.add("\t\t\t]");
-                rows.add("\t\t}");
+                rows.add("\t\t},");
             }
-            rows.add("\t\t\"Location\" : \""+rs.getString("location")+"\"");
-            rows.add("\t\t\"Country\" : \""+rs.getString("country")+"\"");
-            rows.add("\t\t\"Started\" : \""+rs.getString("started")+"\"");
-            rows.add("\t\t\"Ends\" : \""+rs.getString("ends")+"\"");
-            rows.add("\t\t\"SellerID\" : \""+rs.getString("seller_id")+"\"");
+            rows.add("\t\t\"Location\" : \""+rs.getString("location")+"\",");
+            rows.add("\t\t\"Country\" : \""+rs.getString("country")+"\",");
+            rows.add("\t\t\"Started\" : \""+rs.getString("started")+"\",");
+            rows.add("\t\t\"Ends\" : \""+rs.getString("ends")+"\",");
+            rows.add("\t\t\"SellerID\" : \""+rs.getString("seller_id")+"\",");
             rows.add("\t\t\"Description\" : \""+rs.getString("description")+"\"");
-            rows.add("\t}");
+            rows.add("\t},");
         }
         rows.add("\t]");
         rows.add("}");
