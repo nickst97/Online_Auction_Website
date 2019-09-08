@@ -32,7 +32,7 @@ public class UploadBid extends HttpServlet {
             SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String date=sdf.format(new Date());
             Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTCjdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/login?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTCjdbc:mysql://localhost/login?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","");
             Statement st = con.createStatement();
             String id=request.getParameter("item_id");
             int idi=Integer.parseInt(id);
@@ -56,7 +56,13 @@ public class UploadBid extends HttpServlet {
                 else{
                     int upd=st_3.executeUpdate("UPDATE item SET currently = '" + currently + "',number_of_bids = '" + num + "' WHERE item_id = '" + idi + "' ");
                 }
-            }           
+            }      
+            Statement st_4 = con.createStatement();
+            ResultSet bidrs = st_4.executeQuery("SELECT * FROM bidder WHERE user_id = '" + usr + "'");
+            if (!bidrs.isBeforeFirst()) {
+                Statement st_5 = con.createStatement();
+                int rgs = st_5.executeUpdate("insert into bidder (user_id,location,country) values ('" + usr + "','" + request.getParameter("loc") + "','" + request.getParameter("country") + "')");
+            }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(UploadBid.class.getName()).log(Level.SEVERE, null, ex);
         }
