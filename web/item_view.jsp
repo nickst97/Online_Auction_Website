@@ -50,6 +50,7 @@
                     </div>
                     <%
                         }
+                     
                         while (photors.next()) {
                             phids = photors.getString("photo_id");
                     %>
@@ -120,7 +121,7 @@
                         <% if (!bidrs.isBeforeFirst()) { %>
                                 Location: <input type="text" name="loc" placeholder="ex Athens" required/><br/>
                                 Country: <input type="text" name="country" placeholder="ex Greece" required/><br 
-                        <%  %>
+                        <%  } %>
                         <input type="number" name="buyp" step="0.01" min=<%=minval%> max=<%=rs.getString("buy_price")%> placeholder="0.00" required>
                         <input type="submit" name="sbm" id="placebid_id" value="Place bid!" >
                     </div>
@@ -151,27 +152,27 @@
       
 
                 <div class="page_title" style="margin-top: 430px; z-index: 2; z-index: -1;">
-                    <span>Bidds</span>
+                    <span>Bids</span>
                 </div>
                 <%
                     Statement st_3 = con.createStatement();
-                    ResultSet bidrs = st_3.executeQuery("SELECT * FROM bid WHERE item_id = '" + rs.getString("item_id") + "'");
+                    ResultSet bidsrs = st_3.executeQuery("SELECT * FROM bid WHERE item_id = '" + rs.getString("item_id") + "'");
                 %>
                 <div class="bidder_container">
                     <%
-                        while (bidrs.next()) {
+                        while (bidsrs.next()) {
                             Statement st_5 = con.createStatement();
-                            ResultSet bidderrs = st_5.executeQuery("SELECT * FROM bidder WHERE user_id= '" + bidrs.getString("user_id") + "'");
-
+                            ResultSet bidderrs = st_5.executeQuery("SELECT * FROM bidder WHERE user_id= '" + bidsrs.getString("user_id") + "'");
+                            if(bidderrs.next()){
                     %>
-                    <span class="bidder_title"> <%=bidrs.getString("user_id")%> </span> </br>
-                    <span class="bidder_info"> <%=rs.getString("location")%>, <%=rs.getString("country")%> </span>
-                    <span class="bidder_info"> <%=bidrs.getString("time")%> </span>
-                    <span class="bidder_info"> <%=bidrs.getString("amount")%> </span>
+                    <span class="bidder_title"> <%=bidderrs.getString("user_id")%> </span> </br>
+                    <span class="bidder_info"> <%=bidderrs.getString("location")%>, <%=bidderrs.getString("country")%> </span>
+                    <span class="bidder_info"> <%=bidsrs.getString("time")%> </span>
+                    <span class="bidder_info"> <%=bidsrs.getString("amount")%> </span>
                     </br>
                     </br>
                 </div>
-                <% }
+                <% }}
                 %>
                 <%
                     }
