@@ -104,9 +104,16 @@
 
                         </div>
 
-                        <div class="field-wrap">
-                            <input type="text" placeholder="Address" name="address" required/>
+                        <div class="top-row">
+                            <div class="field-wrap">
+                                <input type="text" placeholder="Location" name="loc" required/>
 
+                            </div>
+
+                            <div class="field-wrap">
+                                <input type="text" placeholder="Country" name="country" required/>
+
+                            </div>
                         </div>
 
                         <div class="top-row">

@@ -69,7 +69,7 @@
                 <font size="3">(DTD template)</font>
                 </a>
                 <a class="dbutton dbutton-block" href="DownloadJSON"/>
-                Download XML
+                Download JSON
                 <font size="3">(JSON template)</font>
                 </a>
             </div>

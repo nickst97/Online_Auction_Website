@@ -97,12 +97,13 @@
                         <div class="item_box">
                             <%
                                 ResultSet photors = st_4.executeQuery("SELECT * FROM photo WHERE item_id = '" + id + "' limit 1");
+                                
                                 if (photors.next()) {
                                     String phids;
                                     phids = photors.getString("photo_id");
                             %>      <div class="item_photo" style="background-image: url('./ImageRetrieve?ph=<%=phids%>');"></div>
-                            <%
-                            } else {
+                            <%  }
+                             else {
                             %>      <div class="item_photo" style="background-image: url('./img/no_image.png');"></div>
                             <%
                                 }

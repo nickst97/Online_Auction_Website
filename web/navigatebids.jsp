@@ -26,7 +26,7 @@
     <body>
         <% //check if end date has passed
             Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/login?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTCjdbc:mysql://localhost/login?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTCjdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
             Statement st_10 = con.createStatement();
             int hasn = 2;
             ResultSet rs_10 = st_10.executeQuery("SELECT * FROM item WHERE hasstarted != '" + hasn + "'");
@@ -75,8 +75,8 @@
                 String usr = (String) o;
                 Statement st = con.createStatement();
                 Statement st_4 = con.createStatement();
-                int val = 1;
-                ResultSet rs = st.executeQuery("SELECT * FROM item WHERE seller_id = '" + usr + "' AND hasstarted = '" + val + "' ");
+                int val = 2;
+                ResultSet rs = st.executeQuery("SELECT * FROM item WHERE seller_id = '" + usr + "' AND hasstarted != '" + val + "' ");
             %>
             <!-- Live bids navigation (hasstarted==1) -->
 

@@ -114,7 +114,7 @@
 
                 <div id="up_transition">
 
-                    <a href="item_view.jsp?item_id=<%=rs.getString("item_id")%>">
+                    <a href="item_view.jsp?item_id=<%=rs_2.getString("item_id")%>">
 
                         <div class="item_box">
                             <%

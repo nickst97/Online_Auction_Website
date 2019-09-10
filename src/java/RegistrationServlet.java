@@ -33,7 +33,8 @@ public class RegistrationServlet extends HttpServlet {
             String lname = request.getParameter("lname");
             String email = request.getParameter("email");
             String phone = request.getParameter("phone");
-            String address = request.getParameter("address");
+            String loc = request.getParameter("loc");
+            String country = request.getParameter("country");
             String tin = request.getParameter("tin");
             Class.forName("com.mysql.jdbc.Driver");
             java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
@@ -67,7 +68,8 @@ public class RegistrationServlet extends HttpServlet {
             }
 
             //update database
-            int i = st.executeUpdate("insert into Users (uname, password, fname, lname, email, phone, address, tin) values ('" + uname + "', '" + hashedpasswd.toString() + "', '" + fname + "', '" + lname + "', '" + email + "', '" + phone + "', '" + address + "', '" + tin + "')");
+            int i = st.executeUpdate("insert into Users (uname, password, fname, lname, email, phone, address, tin) values ('" + uname + "', '" + hashedpasswd.toString() + "', '" + fname + "', '" + lname + "', '" + email + "', '" + phone + "', '" + loc + ' ' + country + "', '" + tin + "')");
+            i = st.executeUpdate("insert into bidder (user_id, location, country) values ('" + uname + "', '" + loc + "', '" + country + "')");
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/verify_wait.html");
             dispatcher.forward(request, response);
         } catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException ex) {

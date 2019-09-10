@@ -44,7 +44,7 @@ public class EditBid extends HttpServlet {
             String idd = request.getParameter("item_id");
             int idf = Integer.parseInt(idd);
             Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/login?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTCjdbc:mysql://localhost/login?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTCjdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
             Statement st = con.createStatement();
             Statement st_2 = con.createStatement();
             Statement st_3 = con.createStatement();

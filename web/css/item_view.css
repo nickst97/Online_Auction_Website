@@ -44,7 +44,7 @@ body {
 }
 
 .item_container {
-    z-index: -2;
+    z-index: 0;
     margin-top: 70px;
     padding: 0 15px 100px;
     display: flex;
@@ -288,7 +288,7 @@ input[type=submit]:hover {
 }
 
 .delete_button input[type=submit] {
-    background: url(../img/icons/edit_icon.png);
+    background: url(../img/icons/quit_icon.png);
     background-size: 60px 60px;
     color: transparent;
     border: 0;

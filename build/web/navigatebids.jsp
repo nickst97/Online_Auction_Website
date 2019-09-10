@@ -75,8 +75,8 @@
                 String usr = (String) o;
                 Statement st = con.createStatement();
                 Statement st_4 = con.createStatement();
-                int val = 1;
-                ResultSet rs = st.executeQuery("SELECT * FROM item WHERE seller_id = '" + usr + "' AND hasstarted = '" + val + "' ");
+                int val = 2;
+                ResultSet rs = st.executeQuery("SELECT * FROM item WHERE seller_id = '" + usr + "' AND hasstarted != '" + val + "' ");
             %>
             <!-- Live bids navigation (hasstarted==1) -->
 

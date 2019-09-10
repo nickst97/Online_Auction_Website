@@ -21,7 +21,7 @@
     <body>
         <%
             Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/login?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM item WHERE item_id = '" + request.getParameter("item_id") + "'");
         %>
@@ -174,7 +174,7 @@
                 </div>
                 <%
                     Statement st_3 = con.createStatement();
-                    ResultSet bidsrs = st_3.executeQuery("SELECT * FROM bid WHERE item_id = '" + rs.getString("item_id") + "'");
+                    ResultSet bidsrs = st_3.executeQuery("SELECT * FROM bid WHERE item_id = '" + rs.getString("item_id") + "' ORDER BY amount DESC;");
                 %>
                 <div class="bidder_container">
                     <%
@@ -189,9 +189,9 @@
                     <span class="bidder_info"> <%=bidsrs.getString("amount")%> </span>
                     </br>
                     </br>
-                </div>
                 <% }}
                 %>
+                </div>
                 <%
                     }
                             }

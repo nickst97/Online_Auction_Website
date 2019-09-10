@@ -36,7 +36,7 @@ public class DownloadDTD extends HttpServlet {
 protected void service(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException{
     try{
         Class.forName("com.mysql.jdbc.Driver");
-        java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/login?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","");
+        java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","");
         response.setContentType("text/xml");
         String filename="GenerateDTD_"+System.currentTimeMillis()+".xml";
         response.setHeader("Content-disposition","attachment;filename=" + filename);

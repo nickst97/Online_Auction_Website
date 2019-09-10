@@ -118,10 +118,6 @@
                     <input type="radio" name="start" value="No"> No
                 </div>
                 <!--Coordinates-->
-                <!--Latitude-->
-                <input type="hidden" name="lat" value="25" min="-90" max="90" placeholder="10" step="0.00000001" required/>
-                <!--Longitude:-->
-                <input type="hidden" name="lon" value="49" min="-90" max="90" placeholder="10" step="0.00000001" required/>
                 <!--Submit Button-->
                 <button type="submit" name="create" value="Submit bid" class="button button-block"/>Send your item!</button>
             </form>

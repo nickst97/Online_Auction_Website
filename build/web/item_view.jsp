@@ -49,7 +49,11 @@
                         <img src="./ImageRetrieve?ph=<%=phids%>" id="default" style="height: 50px" onclick="myFunction(this);">
                     </div>
                     <%
-                        }
+                            } else{ %>
+                            <div class="column">
+                        <img src="./img/no_image.png" id="default" style="height: 50px" onclick="myFunction(this);">
+                            </div>
+                    <% }
                         while (photors.next()) {
                             phids = photors.getString("photo_id");
                     %>
@@ -73,8 +77,23 @@
                     </div>
                     <div class="half_panel" style="float: right;">
                         <%=rs.getString("location")%>, <%=rs.getString("country")%> </br>
-                        <% if (rs.getString("lat") != null && rs.getString("lon") != null)%>
-                        <a href="https://www.openstreetmap.org?mlat=<%=rs.getString("lat")%>&amp;mlon=<%=rs.getString("lon")%>" target="_blank" >click to view map</a> </br>
+                        <% 
+                        String temploc=rs.getString("location");
+                        String[] temploc_2=temploc.split("\\s+");
+                        String qr="";
+                        for(int kl=0;kl<temploc_2.length;kl++){
+                            qr=qr+temploc_2[kl];
+                            qr=qr+"%20";
+                        }
+                        String tempcou=rs.getString("country");
+                        String[] tempcou_2=tempcou.split("\\s+");
+                        for(int kl=0;kl<tempcou_2.length;kl++){
+                            qr=qr+tempcou_2[kl];
+                            qr=qr+"%20";
+                        }
+                        String hr="https://www.openstreetmap.org/search?query="+qr;
+                        %>
+                        <a href="<%=hr%>" target="_blank" >click to view map</a> </br> 
                         Start Date: <%=rs.getString("started")%> </br>
                         End Date: <%=rs.getString("ends")%> </br>
                     </div>
@@ -110,18 +129,18 @@
                     Object o = session.getAttribute("user");
                     String usr = (String) o;
                     Statement st_4 = con.createStatement();
-                    //                    ResultSet bidrs = st_4.executeQuery("SELECT * FROM bidder WHERE user_id = '" + usr + "'");
-                    //                    if (!bidrs.isBeforeFirst()) {
-                    //                        Statement st_5 = con.createStatement();
-                    //                        int rgs = st_5.executeUpdate("insert into bidder (user_id,location,country) values ('" + usr + "','" + request.getParameter("loc") + "','" + request.getParameter("country") + "')");
-                    //                    }
+                    ResultSet bidrs = st_4.executeQuery("SELECT * FROM bidder WHERE user_id = '" + usr + "'");
                     double minval = Double.parseDouble(rs.getString("currently"));
                     minval = minval + 0.01;
                 %>
                 <form action="UploadBid" method="post" id="placebid_button_form" onsubmit="return confirm('Are you sure?');">
                     <div id="custom_box">
                         <input name="item_id" type="hidden" value=<%=rs.getString("item_id")%> />
-                        <input type="number" name="buyp" min=<%=minval%> max=<%=rs.getString("buy_price")%> placeholder="0.00 " required>
+                        <% if (!bidrs.isBeforeFirst()) { %>
+                                Location: <input type="text" name="loc" placeholder="ex Athens" required/><br/>
+                                Country: <input type="text" name="country" placeholder="ex Greece" required/><br 
+                        <%  } %>
+                        <input type="number" name="buyp" step="0.01" min=<%=minval%> max=<%=rs.getString("buy_price")%> placeholder="0.00" required>
                         <input type="submit" name="sbm" id="placebid_id" value="Place bid!" >
                     </div>
                 </form>
@@ -142,36 +161,42 @@
                     <input type="submit" name="sbm" value="Delete" title="Delete this item" /><br/><br/>
                     <input name="item_id" type="hidden" value=<%=rs.getString("item_id")%> />
                 </form>
-
+                <% }
+                else if ((!rs.getString("number_of_bids").equals("0")) && (!rs.getString("hasstarted").equals("2"))) {
+            %>
+            <script>
+                document.getElementById('item_container_id').setAttribute("style", "padding-bottom: 40px");
+            </script>
+      
 
                 <div class="page_title" style="margin-top: 430px; z-index: 2; z-index: -1;">
-                    <span>Bidds</span>
+                    <span>Bids</span>
                 </div>
                 <%
                     Statement st_3 = con.createStatement();
-                    ResultSet bidrs = st_3.executeQuery("SELECT * FROM bid WHERE item_id = '" + rs.getString("item_id") + "'");
+                    ResultSet bidsrs = st_3.executeQuery("SELECT * FROM bid WHERE item_id = '" + rs.getString("item_id") + "' ORDER BY amount DESC;");
                 %>
                 <div class="bidder_container">
                     <%
-                        while (bidrs.next()) {
+                        while (bidsrs.next()) {
                             Statement st_5 = con.createStatement();
-                            ResultSet bidderrs = st_5.executeQuery("SELECT * FROM bidder WHERE user_id= '" + bidrs.getString("user_id") + "'");
-
+                            ResultSet bidderrs = st_5.executeQuery("SELECT * FROM bidder WHERE user_id= '" + bidsrs.getString("user_id") + "'");
+                            if(bidderrs.next()){
                     %>
-                    <span class="bidder_title"> <%=bidrs.getString("user_id")%> </span> </br>
-                    <span class="bidder_info"> <%=rs.getString("location")%>, <%=rs.getString("country")%> </span>
-                    <span class="bidder_info"> <%=bidrs.getString("time")%> </span>
-                    <span class="bidder_info"> <%=bidrs.getString("amount")%> </span>
+                    <span class="bidder_title"> <%=bidderrs.getString("user_id")%> </span> </br>
+                    <span class="bidder_info"> <%=bidderrs.getString("location")%>, <%=bidderrs.getString("country")%> </span>
+                    <span class="bidder_info"> <%=bidsrs.getString("time")%> </span>
+                    <span class="bidder_info"> <%=bidsrs.getString("amount")%> </span>
                     </br>
                     </br>
-                </div>
-                <% }
+                <% }}
                 %>
-
+                </div>
                 <%
+                    }
                             }
                         }
-                    }
+                    
                 %>
             </div>
             <script>

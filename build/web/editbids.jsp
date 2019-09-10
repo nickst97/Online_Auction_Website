@@ -40,7 +40,7 @@
                 session.setAttribute("itemid", rs.getString("item_id"));
                 session.setAttribute("hasstarted", rs.getString("hasstarted"));
             %>
-            <form action="EditBid" method="post" class="creation_form"> <!-- enctype="multipart/form-data">-->
+            <form action="EditBid" method="post" class="creation_form" enctype="multipart/form-data">
                 <input name="item_id" type="hidden" value=<%=rs.getString("item_id")%> />
                 <input name="hasstarted" type="hidden" value=<%=rs.getString("hasstarted")%> />
                 <!--Name-->
@@ -138,7 +138,7 @@
                     <span id="field_title"> Add Images</span>
                     <input type="file" name="img" multiple>
                 </div>
-
+                
                 <!--Start Bid Option-->
                 <%
                     if (rs.getString("hasstarted").equals("1")) { %>
@@ -150,11 +150,6 @@
                     <input type="radio" name="start" value="No"> No
                 </div>
                 <% }%>
-                <!--Coordinates-->
-                <!--Latitude-->
-                <input type="hidden" name="lat" value="<%=rs.getString("lat")%>" min="-90" max="90" placeholder="10" step="0.00000001" required/>
-                <!--Longitude:-->
-                <input type="hidden" name="lon" value="<%=rs.getString("lon")%>" min="-90" max="90" placeholder="10" step="0.00000001" required/>
                 <!--Submit Button-->
                 <button type="submit" name="sbm" value="Edit" class="button button-block"/>Submit your edits</button>
             </form>
