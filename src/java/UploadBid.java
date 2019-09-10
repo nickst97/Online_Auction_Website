@@ -59,7 +59,7 @@ public class UploadBid extends HttpServlet {
             }      
             Statement st_4 = con.createStatement();
             ResultSet bidrs = st_4.executeQuery("SELECT * FROM bidder WHERE user_id = '" + usr + "'");
-            if (!bidrs.isBeforeFirst()) {
+           if (!bidrs.isBeforeFirst()) {
                 Statement st_5 = con.createStatement();
                 int rgs = st_5.executeUpdate("insert into bidder (user_id,location,country) values ('" + usr + "','" + request.getParameter("loc") + "','" + request.getParameter("country") + "')");
             }

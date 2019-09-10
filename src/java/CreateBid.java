@@ -53,8 +53,6 @@ public class CreateBid extends HttpServlet {
             String dt=request.getParameter("dt");
             String tm=request.getParameter("tm");
             String enddate=dt+" "+tm;
-            String lat=request.getParameter("lat");
-            String lon=request.getParameter("lon");
             Collection<Part> imgs=request.getParts();
             int num=0;
             int startval=1;
@@ -65,9 +63,9 @@ public class CreateBid extends HttpServlet {
                    startval=0;
             }
             Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTCjdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/login?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTCjdbc:mysql://localhost/login?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","");
             Statement st = con.createStatement();
-            int l=st.executeUpdate("insert into item (name,currently,first_bid,buy_price,number_of_bids,location,country,started,ends,seller_id,description,hasstarted,lat,lon) values('" + name + "','" + firstbid + "', '" + firstbid + "','" + buyprice + "','" + num + "', '" + location + "','" + country + "', '" + date + "', '" + enddate + "','" + usr + "','" + description + "','" + startval + "','" + lat + "','" + lon + "')");
+            int l=st.executeUpdate("insert into item (name,currently,first_bid,buy_price,number_of_bids,location,country,started,ends,seller_id,description,hasstarted) values('" + name + "','" + firstbid + "', '" + firstbid + "','" + buyprice + "','" + num + "', '" + location + "','" + country + "', '" + date + "', '" + enddate + "','" + usr + "','" + description + "','" + startval + "')");
             ResultSet rs=st.executeQuery("select * from item order by item_id desc limit 1");
             if(rs.next()){
                 String id=rs.getString(1);
@@ -75,15 +73,16 @@ public class CreateBid extends HttpServlet {
                 for(int k=0;k<category.length;k++){
                     l=st.executeUpdate("insert into category (item_id,category_name) values ('" + idi + "','" + category[k] + "')");
                 }
-               //for(int k=0;k<img.length;k++){
                 for(Part img :imgs){
                     if(img.getName().equals("img")){
-                    InputStream is=img.getInputStream();
-                    String sql="insert into photo (item_id,photo_data) values(?,?)";
-                    PreparedStatement stat=con.prepareStatement(sql);
-                    stat.setString(1,id);
-                    stat.setBlob(2,is);
-                    stat.executeUpdate();
+                        InputStream is=img.getInputStream();
+                        if(is.available()>0){
+                            String sql="insert into photo (item_id,photo_data) values(?,?)";
+                            PreparedStatement stat=con.prepareStatement(sql);
+                            stat.setString(1,id);
+                            stat.setBlob(2,is);
+                            stat.executeUpdate();
+                        }
                     }
                }
 
