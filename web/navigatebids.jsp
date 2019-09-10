@@ -24,6 +24,16 @@
         </script>
     </head>
     <body>
+        <%
+            if (session.getAttribute("user_type") == null) {
+                session.setAttribute("user_type", "visitor");
+            }
+        %>
+        <%
+            if (session.getAttribute("user_type").equals("visitor")) {
+                response.sendRedirect("homepage.jsp");
+            }
+        %>
         <% //check if end date has passed
             Class.forName("com.mysql.jdbc.Driver");
             java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTCjdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");

@@ -24,6 +24,11 @@
         </script>
     </head>
     <body>
+        <%
+            if (session.getAttribute("user_type") == null) {
+                session.setAttribute("user_type", "visitor");
+            }
+        %>
         <div id="header"> </div>
         <!--!-->
         <% //check if end date has passed

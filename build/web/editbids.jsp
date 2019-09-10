@@ -23,6 +23,16 @@
     </head>
     <body>
         <%
+            if (session.getAttribute("user_type") == null) {
+                session.setAttribute("user_type", "visitor");
+            }
+        %>
+        <%
+            if (session.getAttribute("user_type").equals("visitor")) {
+                response.sendRedirect("homepage.jsp");
+            }
+        %>
+        <%
             Class.forName("com.mysql.jdbc.Driver");
             java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
             Statement st = con.createStatement();

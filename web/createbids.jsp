@@ -20,6 +20,16 @@
 
     </head>
     <body>
+        <%
+            if (session.getAttribute("user_type") == null) {
+                session.setAttribute("user_type", "visitor");
+            }
+        %>
+        <%
+            if (session.getAttribute("user_type").equals("visitor")) {
+                response.sendRedirect("homepage.jsp");
+            }
+        %>
         <div id="header"> </div>
         <div class="main_body">
             <div class="page_title">
