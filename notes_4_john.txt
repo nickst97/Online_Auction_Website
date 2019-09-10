@@ -1,5 +1,4 @@
 
 1. front end οταν εχει bids ενα ιτεμ
 2. front end στο place bid πρωτη φορα ενος νεου χρηστη
-3. front end edit το text hasstarted
-4. front end στο click to view map
+3. front end στο click to view map
