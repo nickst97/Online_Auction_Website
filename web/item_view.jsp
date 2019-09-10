@@ -49,8 +49,11 @@
                         <img src="./ImageRetrieve?ph=<%=phids%>" id="default" style="height: 50px" onclick="myFunction(this);">
                     </div>
                     <%
-                        }
-                     
+                            } else{ %>
+                            <div class="column">
+                        <img src="./img/no_image.png" id="default" style="height: 50px" onclick="myFunction(this);">
+                            </div>
+                    <% }
                         while (photors.next()) {
                             phids = photors.getString("photo_id");
                     %>
@@ -74,8 +77,23 @@
                     </div>
                     <div class="half_panel" style="float: right;">
                         <%=rs.getString("location")%>, <%=rs.getString("country")%> </br>
-                        <% if (rs.getString("lat") != null && rs.getString("lon") != null)%>
-                        <a href="https://www.openstreetmap.org?mlat=<%=rs.getString("lat")%>&amp;mlon=<%=rs.getString("lon")%>" target="_blank" >click to view map</a> </br>
+                        <% 
+                        String temploc=rs.getString("location");
+                        String[] temploc_2=temploc.split("\\s+");
+                        String qr="";
+                        for(int kl=0;kl<temploc_2.length;kl++){
+                            qr=qr+temploc_2[kl];
+                            qr=qr+"%20";
+                        }
+                        String tempcou=rs.getString("country");
+                        String[] tempcou_2=tempcou.split("\\s+");
+                        for(int kl=0;kl<tempcou_2.length;kl++){
+                            qr=qr+tempcou_2[kl];
+                            qr=qr+"%20";
+                        }
+                        String hr="https://www.openstreetmap.org/search?query="+qr;
+                        %>
+                        <a href="<%=hr%>" target="_blank" >click to view map</a> </br> 
                         Start Date: <%=rs.getString("started")%> </br>
                         End Date: <%=rs.getString("ends")%> </br>
                     </div>
