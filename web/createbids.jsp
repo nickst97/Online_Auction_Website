@@ -49,7 +49,7 @@
                     <div class="panel">
                         <div id="left">
                             <%                                Class.forName("com.mysql.jdbc.Driver");
-                                java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
+                                java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/login?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
                                 Statement st = con.createStatement();
                                 ResultSet rs = st.executeQuery("SELECT * FROM category_labels ORDER BY category_name limit 15");
                                 while (rs.next()) {
@@ -132,5 +132,6 @@
                 <button type="submit" name="create" value="Submit bid" class="button button-block"/>Send your item!</button>
             </form>
         </div>
+                        <% con.close(); %>
     </body>
 </html>

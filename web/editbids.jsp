@@ -34,7 +34,7 @@
         %>
         <%
             Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/login?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM item WHERE item_id = '" + request.getParameter("item_id") + "'");
         %>
@@ -56,7 +56,7 @@
                 <!--Name-->
                 <div class="field_options" id="box70">
                     <span id="field_title"> Item Title</span>
-                    <input type="text" name="name" value=<%=rs.getString("name")%> required>
+                    <input type="text" name="name" value="<%=rs.getString("name")%>" required>
                 </div>
 
                 <!--Categories-->
@@ -167,5 +167,6 @@
                 }
             %>
         </div>
+        <% con.close(); %>
     </body>
 </html>
