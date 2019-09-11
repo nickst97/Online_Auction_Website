@@ -37,7 +37,7 @@ public class RegistrationServlet extends HttpServlet {
             String country = request.getParameter("country");
             String tin = request.getParameter("tin");
             Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/login?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
             Statement st = con.createStatement();
 
             //username availability checking
@@ -70,6 +70,7 @@ public class RegistrationServlet extends HttpServlet {
             //update database
             int i = st.executeUpdate("insert into Users (uname, password, fname, lname, email, phone, address, tin) values ('" + uname + "', '" + hashedpasswd.toString() + "', '" + fname + "', '" + lname + "', '" + email + "', '" + phone + "', '" + loc + ' ' + country + "', '" + tin + "')");
             i = st.executeUpdate("insert into bidder (user_id, location, country) values ('" + uname + "', '" + loc + "', '" + country + "')");
+            con.close();
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/verify_wait.html");
             dispatcher.forward(request, response);
         } catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException ex) {

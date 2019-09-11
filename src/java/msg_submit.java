@@ -31,7 +31,7 @@ public class msg_submit extends HttpServlet {
             String item_id = request.getParameter("itemid");
             String content = request.getParameter("content");
             Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/login?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
             Statement st = con.createStatement();
             HttpSession session = request.getSession(false);
             String sender_uname = (String) session.getAttribute("user");
@@ -50,6 +50,7 @@ public class msg_submit extends HttpServlet {
                 int i = st.executeUpdate("insert into messages (item_id, sender_uname, receiver_uname, time, content) values (" + item_id + ", '" + sender_uname + "', '" + receiver_uname + "', '" + time + "', '" + content + "')");
                 response.sendRedirect("inbox.jsp");
             }
+            con.close();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(msg_submit.class.getName()).log(Level.SEVERE, null, ex);
         }

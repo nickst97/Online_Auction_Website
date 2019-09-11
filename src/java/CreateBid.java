@@ -63,7 +63,7 @@ public class CreateBid extends HttpServlet {
                    startval=0;
             }
             Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTCjdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/login?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTCjdbc:mysql://localhost/login?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","");
             Statement st = con.createStatement();
             int l=st.executeUpdate("insert into item (name,currently,first_bid,buy_price,number_of_bids,location,country,started,ends,seller_id,description,hasstarted) values('" + name + "','" + firstbid + "', '" + firstbid + "','" + buyprice + "','" + num + "', '" + location + "','" + country + "', '" + date + "', '" + enddate + "','" + usr + "','" + description + "','" + startval + "')");
             ResultSet rs=st.executeQuery("select * from item order by item_id desc limit 1");
@@ -87,6 +87,7 @@ public class CreateBid extends HttpServlet {
                }
 
             }
+            con.close();
         } catch (ClassNotFoundException | SQLException | NullPointerException | ServletException ex) {
             Logger.getLogger(CreateBid.class.getName()).log(Level.SEVERE, null, ex);
         }
