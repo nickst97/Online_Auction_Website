@@ -180,9 +180,9 @@
                     String kwd = request.getParameter("kwd");
                     String cat = request.getParameter("cat");
                     if (cat.equals("all")) {
-                        rs = st.executeQuery("SELECT * FROM item WHERE description LIKE '%" + kwd + "%' or name LIKE '%" + kwd + "%'");
+                        rs = st.executeQuery("SELECT * FROM item WHERE description LIKE '%" + kwd + "%' or name LIKE '%" + kwd + "%' and hasstarted = 1");
                     } else {
-                        rs = st.executeQuery("SELECT * FROM item WHERE description LIKE '%" + kwd + "%' or name LIKE '%" + kwd + "%' and item_id in (select item_id from category where category_name = '" + cat + "');");
+                        rs = st.executeQuery("SELECT * FROM item WHERE description LIKE '%" + kwd + "%' or name LIKE '%" + kwd + "%' and hasstarted = 1 and item_id in (select item_id from category where category_name = '" + cat + "');");
                     }
                 } %>
 
