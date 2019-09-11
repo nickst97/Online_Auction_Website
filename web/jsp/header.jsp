@@ -46,7 +46,7 @@
                         <option value="all" name="cat" selected>All Categories<i class='fas fa-sort-down'></i></option>
                         <%
                             Class.forName("com.mysql.jdbc.Driver");
-                            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTCjdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
+                            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/login?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTCjdbc:mysql://localhost/login?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
                             Statement st = con.createStatement();
                             ResultSet rs = st.executeQuery("SELECT * FROM category_labels ORDER BY category_name;");
                             while (rs.next()) {
@@ -170,5 +170,6 @@
             }
 
         </script>
+        <% con.close(); %>
     </body>
 </html>
