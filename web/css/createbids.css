@@ -145,6 +145,7 @@ body {
     width: 15%;
     float: right;
     display: inline-block;
+    margin-bottom: 35px;
 }
 
 .creation_form .button {

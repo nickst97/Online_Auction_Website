@@ -3,7 +3,7 @@
 <%@page import="java.sql.DriverManager"%>
 <%
     Class.forName("com.mysql.jdbc.Driver");
-    java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/login?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
+    java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/MyEbayDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
     Statement st_msg = con.createStatement();
     Statement st_item = con.createStatement();
     ResultSet rs_msg, rs_item;

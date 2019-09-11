@@ -145,6 +145,7 @@
             </div>
             <!--!-->
         </div>
+            <% con.close(); %>
     </body>
 </html>
 `

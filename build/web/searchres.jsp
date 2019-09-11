@@ -249,5 +249,6 @@
                 }// if
             %>
         </div>
+    <% con.close(); %>
     </body>
 </html>

@@ -170,5 +170,6 @@
             }
 
         </script>
+        <% con.close(); %>
     </body>
 </html>

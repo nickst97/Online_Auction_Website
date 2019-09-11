@@ -56,7 +56,7 @@
                 <!--Name-->
                 <div class="field_options" id="box70">
                     <span id="field_title"> Item Title</span>
-                    <input type="text" name="name" value=<%=rs.getString("name")%> required>
+                    <input type="text" name="name" value="<%=rs.getString("name")%>" required>
                 </div>
 
                 <!--Categories-->
@@ -167,5 +167,6 @@
                 }
             %>
         </div>
+        <% con.close(); %>
     </body>
 </html>

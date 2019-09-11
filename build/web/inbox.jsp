@@ -228,5 +228,6 @@
                 evt.currentTarget.className += " active";
             }
         </script>
+        <% con.close(); %>
     </body>
 </html>

@@ -116,7 +116,7 @@
                 </div>
 
                 <!--Images-->
-                <div class="field_options" id="box35">
+                <div class="field_options" id="box35" style="margin-bottom: 40px;">
                     <span id="field_title"> Add Images</span>
                     <input type="file" name="img" multiple>
                 </div>
@@ -132,5 +132,6 @@
                 <button type="submit" name="create" value="Submit bid" class="button button-block"/>Send your item!</button>
             </form>
         </div>
+                        <% con.close(); %>
     </body>
 </html>
