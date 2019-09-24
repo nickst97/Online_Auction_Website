@@ -49,7 +49,7 @@ protected void service(HttpServletRequest request,HttpServletResponse response) 
         while(rs.next()){
             rows.add("\t{");
             int id=Integer.parseInt(rs.getString("item_id"));
-            rows.add("\t\t\"ItemID\" : \""+rs.getString("item_id")+"\",");
+            rows.add("\t\t\"ItemID\" : "+rs.getString("item_id")+",");
             rows.add("\t\t\"Name\" : \""+rs.getString("name")+"\",");
             //for every category
             Statement st_2 = con.createStatement();
@@ -57,9 +57,9 @@ protected void service(HttpServletRequest request,HttpServletResponse response) 
             while(rs_2.next()){
                 rows.add("\t\t\"Category\" : \""+rs_2.getString("category_name")+"\",");
             }
-            rows.add("\t\t\"Currently\" : \""+rs.getString("currently")+"\",");
-            rows.add("\t\t\"First_Bid\" : \""+rs.getString("first_bid")+"\",");
-            rows.add("\t\t\"Number_of_Bids\" : \""+rs.getString("number_of_bids")+"\",");
+            rows.add("\t\t\"Currently\" : "+rs.getString("currently")+",");
+            rows.add("\t\t\"First_Bid\" : "+rs.getString("first_bid")+",");
+            rows.add("\t\t\"Number_of_Bids\" : "+rs.getString("number_of_bids")+",");
             //bid
             Statement st_3 = con.createStatement();
             ResultSet rs_3=st_3.executeQuery("select * from bid where item_id = '" + id + "'");
@@ -78,7 +78,7 @@ protected void service(HttpServletRequest request,HttpServletResponse response) 
                         rows.add("\t\t\t\t},");
                     }
                     rows.add("\t\t\t\t\"Time\" : \""+rs_3.getString("time")+"\",");
-                    rows.add("\t\t\t\t\"Amount\" : \""+rs_3.getString("amount")+"\"");
+                    rows.add("\t\t\t\t\"Amount\" : "+rs_3.getString("amount")+"");
                     rows.add("\t\t\t},");
                 }
                 rows.add("\t\t\t]");
