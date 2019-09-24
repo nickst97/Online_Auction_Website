@@ -89,7 +89,9 @@ protected void service(HttpServletRequest request,HttpServletResponse response) 
             rows.add("\t\t\"Started\" : \""+rs.getString("started")+"\",");
             rows.add("\t\t\"Ends\" : \""+rs.getString("ends")+"\",");
             rows.add("\t\t\"SellerID\" : \""+rs.getString("seller_id")+"\",");
-            rows.add("\t\t\"Description\" : \""+rs.getString("description")+"\"");
+            String desc=rs.getString("description");
+            desc = desc.replace("\n"," ").replace("\r"," ");
+            rows.add("\t\t\"Description\" : \""+desc+"\"");
             rows.add("\t},");
         }
         rows.add("\t]");
@@ -107,4 +109,3 @@ protected void service(HttpServletRequest request,HttpServletResponse response) 
     }
 }
 }
-
