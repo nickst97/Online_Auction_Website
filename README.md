@@ -15,8 +15,8 @@ This project is about an online auction website, that gives the ability to the u
 
 ![Alt text](https://github.com/NickStavrakakis/Online_Auction_Website/blob/master/biddit_preview_github_1.png "Welcome Page Preview")
 
-![Alt text](https://github.com/NickStavrakakis/Online_Auction_Website/master/biddit_preview_github_2.png "Home Page Preview")
+![Alt text](https://github.com/NickStavrakakis/Online_Auction_Website/blob/master/biddit_preview_github_2.png "Home Page Preview")
 
-![Alt text](https://github.com/NickStavrakakis/Online_Auction_Website/master/biddit_preview_github_3.png "Bidding Page Preview")
+![Alt text](https://github.com/NickStavrakakis/Online_Auction_Website/blob/master/biddit_preview_github_3.png "Bidding Page Preview")
 
-![Alt text](https://github.com/NickStavrakakis/Online_Auction_Website/master/biddit_preview_github_4.png "Messaging Page Preview")
+![Alt text](https://github.com/NickStavrakakis/Online_Auction_Website/blob/master/biddit_preview_github_4.png "Messaging Page Preview")
