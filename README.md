@@ -11,7 +11,12 @@ This project is about an online auction website, that gives the ability to the u
 
 ### Supervisors
 
-* Professor Chamodrakas Ioannis <ihamod@di.uoa.gr >, University of Athens
+* Professor Chamodrakas Ioannis <ihamod@di.uoa.gr>, University of Athens
 
-![Alt text](https://github.com/NickStavrakakis/Redesigning_Eudoxuss/blob/master/eudoxus_preview_github.png "Homepage Preview")
+![Alt text](https://github.com/NickStavrakakis/Redesigning_Eudoxuss/blob/master/eudoxus_preview_github.png "Welcome Page Preview")
 
+![Alt text](https://github.com/NickStavrakakis/Redesigning_Eudoxuss/blob/master/eudoxus_preview_github.png "Home Page Preview")
+
+![Alt text](https://github.com/NickStavrakakis/Redesigning_Eudoxuss/blob/master/eudoxus_preview_github.png "Bidding Page Preview")
+
+![Alt text](https://github.com/NickStavrakakis/Redesigning_Eudoxuss/blob/master/eudoxus_preview_github.png "Messaging Page Preview")
