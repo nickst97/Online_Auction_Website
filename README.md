@@ -13,3 +13,5 @@ This project is about an online auction website, that gives the ability to the u
 
 * Professor Chamodrakas Ioannis <ihamod@di.uoa.gr >, University of Athens
 
+![Alt text](https://github.com/NickStavrakakis/Redesigning_Eudoxuss/blob/master/eudoxus_preview_github.png "Homepage Preview")
+
